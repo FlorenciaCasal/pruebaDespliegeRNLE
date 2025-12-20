@@ -355,30 +355,18 @@ export default function ReservasPage() {
               className="w-full rounded-lg border border-neutral-700 bg-white px-3 h-[40px] text-sm text-black placeholder:text-neutral-500 focus:border-neutral-500 focus:outline-none appearance-none"
             /> */}
             <div className="relative">
-  {!searchDate && (
-    <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-sm text-neutral-400">
-      Fecha de visita
-    </span>
-  )}
+              {!searchDate && (
+                <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-sm text-neutral-400">
+                  Fecha de visita
+                </span>
+              )}
 
-  <input
-    type="date"
-    value={searchDate}
-    onChange={(e) => setSearchDate(e.target.value)}
-    className="
-      w-full
-      h-[42px]
-      appearance-none
-      rounded-lg
-      border border-neutral-700
-      bg-white
-      px-3
-      text-sm text-black
-      focus:border-neutral-500
-      focus:outline-none
-    "
-  />
-</div>
+              <input
+                type="date"
+                value={searchDate}
+                onChange={(e) => setSearchDate(e.target.value)}
+                className="w-full h-[40px] appearance-none rounded-lg border border-neutral-700 bg-white px-3 text-sm text-black focus:border-neutral-500 focus:outline-none" />
+            </div>
 
           </div>
 
@@ -514,7 +502,10 @@ export default function ReservasPage() {
                   </div>
 
                   {/* Acompañantes (desplegable) */}
-                  <div className="mt-3 col-span-2">
+                  {/* <div className="mt-3 col-span-2">
+                    <CompanionsDisclosure companions={r.companions} dense />
+                  </div> */}
+                  <div className="mt-4 -mx-4 border-t border-neutral-800 pt-3">
                     <CompanionsDisclosure companions={r.companions} dense />
                   </div>
 
