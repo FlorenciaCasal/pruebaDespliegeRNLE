@@ -352,7 +352,7 @@ export default function ReservasPage() {
               value={searchDate}
               onChange={(e) => setSearchDate(e.target.value)}
               placeholder="Fecha de visita"
-              className="w-full rounded-lg border border-neutral-700 bg-white px-3 py-2 text-sm text-black placeholder:text-neutral-500 focus:border-neutral-500 focus:outline-none"
+              className="w-full rounded-lg border border-neutral-700 bg-white px-3 h-[42px] text-sm text-black placeholder:text-neutral-500 focus:border-neutral-500 focus:outline-none appearance-none"
             />
           </div>
 
