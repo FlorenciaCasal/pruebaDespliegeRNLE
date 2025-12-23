@@ -13,6 +13,7 @@ import { formatVisitorsFromForm } from "./utils";
 // import type { CircuitoKey } from "../../types/reservation"
 import { getPublicBookingFlags, type BookingFlags } from "@/services/admin";
 import { useToast } from "@/components/ui/Toast";
+import { getAvailabilityByDate } from "@/services/availibility";
 
 
 
@@ -69,6 +70,14 @@ export default function ReservationWizard({
   // válido si hay al menos 1 adulto (misma regla que Yup)
   const visitorsValid = adultos >= 1;
 
+  const [availability, setAvailability] = useState<{
+    capacity: number;
+    remaining: number;
+  } | null>(null);
+
+  const [loadingAvailability, setLoadingAvailability] = useState(false);
+
+
   // Bloqueo provisorio si aún no cargaron flags y el usuario marcó escuela
   useEffect(() => {
     if (!flags && tipoVisitante === "INSTITUCION_EDUCATIVA") {
@@ -112,6 +121,16 @@ export default function ReservationWizard({
     });
   };
 
+  const totalSeleccionado = adultos + ninos + bebes;
+
+  const exceedsCapacity = availability !== null && totalSeleccionado > availability.remaining;
+
+  const noAvailability =
+    availability !== null && availability.remaining === 0;
+
+
+
+
   return (
     <div className="text-main">
       <h1 className="text-2xl text-center font-semibold text-black mb-4">Reserva tu visita</h1>
@@ -144,11 +163,24 @@ export default function ReservationWizard({
         <Step
           label="Visitantes"
           value={formatVisitorsFromForm({ adultos, ninos, bebes })}
-          onClick={() => setOpen("VISITORS")}
-          disabled={!fechaISO}
+          // onClick={() => setOpen("VISITORS")}
+          onClick={() => {
+            if (noAvailability) {
+              toast("No hay cupo disponible para la fecha seleccionada.");
+              return;
+            }
+            setOpen("VISITORS");
+          }}
+          // disabled={!fechaISO}
+          disabled={!fechaISO || noAvailability}
           error={!!errors.adultos || !!errors.ninos || !!errors.bebes}
           className="w-full rounded-xl border border-button bg-transparent text-neutral-900 hover:border-button hover:bg-button-50/40 transition"
         />
+        {noAvailability && (
+          <p className="mt-2 text-sm text-red-600">
+            No hay cupo disponible para la fecha seleccionada. Elegí otra fecha.
+          </p>
+        )}
       </div>
 
       {/* Panel: Tipo */}
@@ -227,13 +259,35 @@ export default function ReservationWizard({
       {/* Panel: Fecha */}
       <SidePanel open={open === "DATE"} title="Elegí una fecha" onClose={() => setOpen(null)} size="lg">
         <div className="space-y-3">
-          <CalendarPicker
+          {/* <CalendarPicker
             selectedISO={typeof fechaISO === "string" ? fechaISO : undefined}
             onSelectISO={(iso) => {
               setValue("fechaISO", iso, { shouldValidate: true });
               setOpen(null);
             }}
+          /> */}
+          <CalendarPicker
+            selectedISO={typeof fechaISO === "string" ? fechaISO : undefined}
+            onSelectISO={async (iso) => {
+              setValue("fechaISO", iso, { shouldValidate: true });
+              setOpen(null);
+
+              setLoadingAvailability(true);
+              try {
+                const data = await getAvailabilityByDate(iso);
+                setAvailability({
+                  capacity: data.capacity,
+                  remaining: data.remaining,
+                });
+              } catch {
+                setAvailability(null);
+                toast("No se pudo consultar la disponibilidad para esa fecha.");
+              } finally {
+                setLoadingAvailability(false);
+              }
+            }}
           />
+
           {/* <p className="text-sm text-white/70"> */}
           <p className="text-sm text-neutral-600">
             {fechaISO ? `Fecha seleccionada: ${fechaISO}` : "Elegí un día del calendario"}
@@ -279,6 +333,24 @@ export default function ReservationWizard({
           </button>
         </div>
       </SidePanel>
+
+      {loadingAvailability && (
+        <p className="text-sm text-neutral-500 mt-2">
+          Consultando disponibilidad…
+        </p>
+      )}
+
+      {availability && !loadingAvailability && (
+        <p className="text-sm text-emerald-500 mt-2">
+          Quedan <strong>{availability.remaining}</strong> lugares disponibles para esta fecha.
+        </p>
+      )}
+
+      {exceedsCapacity && (
+        <p className="text-sm text-red-500 mt-1">
+          La cantidad de visitantes supera el cupo disponible.
+        </p>
+      )}
 
       {/* CTA */}
       <form onSubmit={handleSubmit(onSubmit)} className="mt-6 flex items-center justify-between">

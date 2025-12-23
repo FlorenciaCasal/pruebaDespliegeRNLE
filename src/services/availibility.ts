@@ -18,3 +18,23 @@ export async function getDisabledDays(year: number, month: number): Promise<Set<
 
   return new Set(disabled);
 }
+
+export type AvailabilityByDateDTO = {
+  date: string;       // "YYYY-MM-DD"
+  capacity: number;
+  remaining: number;
+};
+
+export async function getAvailabilityByDate(
+  dateISO: string
+): Promise<AvailabilityByDateDTO> {
+  const res = await fetch(`/api/availability-proxy?date=${dateISO}`, {
+    cache: "no-store",
+  });
+
+  if (!res.ok) {
+    throw new Error("No se pudo cargar la disponibilidad del día");
+  }
+
+  return res.json();
+}

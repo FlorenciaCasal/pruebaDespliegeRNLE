@@ -4,6 +4,7 @@ import { getCalendarState, setDayEnabled, setMonthEnabled, fetchReservations } f
 import type { CalendarMonthState, AdminReservation } from "@/types/admin";
 import BookingFlagsInline from "@/components/admin/BookingFlagsInline";
 import formatName from "@/utils/formatName";
+import { useEffect } from "react";
 
 // const DEFAULT_CAPACITY =
 //   Number(process.env.NEXT_PUBLIC_DEFAULT_CAPACITY ?? 30); // mismo que app.defaultCapacity
@@ -30,6 +31,13 @@ export default function CalendarioAdminPage() {
     const [busy, setBusy] = React.useState<boolean>(false);
     const [selectedDay, setSelectedDay] = React.useState<string | null>(null);
 
+    const [defaultCapacity, setDefaultCapacity] = React.useState<number | null>(null);
+    const [savingCapacity, setSavingCapacity] = React.useState(false);
+
+    const [capacityDay, setCapacityDay] = React.useState<number | null>(null);
+    const [capacityModalDay, setCapacityModalDay] = React.useState<string | null>(null);
+
+
     const load = React.useCallback(
         async (yy: number = y, mm: number = m): Promise<void> => {
             setLoading(true);
@@ -49,6 +57,22 @@ export default function CalendarioAdminPage() {
         },
         [y, m]
     );
+
+    useEffect(() => {
+        fetch("/api/admin/config/default-capacity")
+            .then(r => r.json())
+            .then(d => setDefaultCapacity(d.capacity))
+            .catch(() => setDefaultCapacity(null));
+    }, []);
+
+    useEffect(() => {
+        if (!capacityModalDay) return;
+
+        fetch(`/api/availability-proxy?date=${capacityModalDay}`)
+            .then(r => r.json())
+            .then(d => setCapacityDay(d.capacity));
+    }, [capacityModalDay]);
+
 
     React.useEffect(() => {
         void load();
@@ -179,7 +203,7 @@ export default function CalendarioAdminPage() {
                 <div className="space-y-4">
                     <div className="space-y-3">
                         {/* <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between"> */}
-                        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between lg:px-8">
                             {/* Izquierda: botón rojo + texto */}
                             <div className="flex items-center gap-3">
                                 <button
@@ -189,25 +213,112 @@ export default function CalendarioAdminPage() {
                                     //     "rounded-lg px-2 md:px-4 py-2 text-white disabled:opacity-60 " +
                                     //     (state.disabled ? "bg-green-600/90 hover:bg-green-600" : "bg-red-600/90 hover:bg-red-600")
                                     // }
-                                    className={"w-full rounded-lg px-3 md:px-4 py-2 text-white disabled:opacity-60 " + (state.disabled ? "bg-green-600/90 hover:bg-green-600" : "bg-red-600/90 hover:bg-red-600")}
+                                    className={"w-full rounded-lg text-sm px-3 md:px-4 py-2 text-white disabled:opacity-60 " + (state.disabled ? "bg-green-600/90 hover:bg-green-600" : "bg-red-600/90 hover:bg-red-600")}
                                 >
                                     {busy ? "..." : state.disabled ? "Habilitar mes completo" : "Deshabilitar mes completo"}
                                 </button>
                                 {/* <span className="text-sm text-neutral-400">
                                     Hacé clic en un día para alternar su estado.
                                 </span> */}
-                                <span className="text-xs sm:text-sm text-neutral-400 sm:ml-1">
+                                <span className="text-xs  text-neutral-400 sm:ml-1">
                                     Tocá un día para alternar su estado.
                                 </span>
                             </div>
 
                             {/* Derecha: NUEVO toggle de instituciones */}
                             <BookingFlagsInline />
+
+                            <div className="flex items-center gap-3">
+                                <label className="text-sm text-neutral-300">
+                                    Capacidad diaria
+                                </label>
+
+                                <input
+                                    type="number"
+                                    min={0}
+                                    className="w-20 rounded-md border border-neutral-700 bg-neutral-950 px-2 py-1 text-sm text-white"
+                                    value={defaultCapacity ?? ""}
+                                    onChange={(e) => setDefaultCapacity(Number(e.target.value))}
+                                />
+
+                                <button
+                                    disabled={savingCapacity || defaultCapacity === null}
+                                    onClick={async () => {
+                                        try {
+                                            setSavingCapacity(true);
+                                            const res = await fetch("/api/admin/config/default-capacity", {
+                                                method: "PUT",
+                                                headers: { "Content-Type": "application/json" },
+                                                body: JSON.stringify({ capacity: defaultCapacity }),
+                                            });
+                                            if (!res.ok) throw new Error();
+                                            alert("Capacidad actualizada");
+                                        } catch {
+                                            alert("No se pudo actualizar la capacidad");
+                                        } finally {
+                                            setSavingCapacity(false);
+                                        }
+                                    }}
+                                    className="rounded-md bg-blue-600 px-3 py-1 text-xs text-white disabled:opacity-50"
+                                >
+                                    Guardar
+                                </button>
+                            </div>
+
+                            {/* {selectedDay && ( */}
+                            {capacityModalDay && (
+
+                                <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
+                                    <div className="bg-neutral-950 border border-neutral-800 rounded-xl p-4 w-[320px]">
+                                        <h3 className="text-lg font-semibold mb-3">
+                                            {/* Capacidad del {selectedDay} */}
+                                            Capacidad del {capacityModalDay}
+                                        </h3>
+
+                                        <input
+                                            type="number"
+                                            min={0}
+                                            className="w-full rounded-md border border-neutral-700 bg-neutral-950 px-2 py-1 text-sm"
+                                            value={capacityDay ?? ""}
+                                            onChange={(e) => setCapacityDay(Number(e.target.value))}
+                                        />
+
+                                        <div className="flex justify-end gap-2 mt-4">
+                                            <button
+                                                // onClick={() => setSelectedDay(null)}
+                                                onClick={() => setCapacityModalDay(null)}
+                                                className="text-sm text-neutral-400"
+                                            >
+                                                Cancelar
+                                            </button>
+
+                                            <button
+                                                className="rounded-md bg-blue-600 px-3 py-1 text-sm text-white"
+                                                onClick={async () => {
+                                                    // await fetch(`/api/admin/availability/${selectedDay}`, {
+                                                    await fetch(`/api/admin/availability/${capacityModalDay}`, {
+                                                        method: "PUT",
+                                                        headers: { "Content-Type": "application/json" },
+                                                        body: JSON.stringify({ capacity: capacityDay }),
+                                                    });
+                                                    // setSelectedDay(null);
+                                                    setCapacityModalDay(null);
+                                                    void load(); // refresca calendario
+                                                }}
+                                            >
+                                                Guardar
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+
+
                         </div>
 
                         {/* Leyenda */}
                         {/* <div className="flex items-center gap-4 text-sm"> */}
-                        <div className="grid grid-cols-2 gap-3 sm:flex sm:items-center sm:gap-4 text-xs sm:text-sm">
+                        <div className="grid grid-cols-2 gap-3 sm:flex sm:items-center sm:gap-4 text-xs sm:text-sm lg:px-8">
                             <div className="flex items-center gap-2">
                                 <div className="w-4 h-4 rounded bg-blue-600" />
                                 <span className="text-neutral-300">Número de reservas confirmadas</span>
@@ -237,14 +348,20 @@ export default function CalendarioAdminPage() {
                                     key={i}
                                     onClick={() => {
                                         if (reservationCount > 0) {
-                                            setSelectedDay(isSelected ? null : dateISO);
+                                            // setSelectedDay(isSelected ? null : dateISO);
+                                            setSelectedDay(dateISO);
                                         } else {
                                             void toggleDay(dateISO);
                                         }
                                     }}
+                                    // onContextMenu={(e) => {
+                                    //     e.preventDefault();
+                                    //     void toggleDay(dateISO);
+                                    // }}
                                     onContextMenu={(e) => {
                                         e.preventDefault();
-                                        void toggleDay(dateISO);
+                                        // setSelectedDay(dateISO); // abre modal de capacidad
+                                        setCapacityModalDay(dateISO);
                                     }}
                                     disabled={busy}
                                     className={
@@ -256,7 +373,7 @@ export default function CalendarioAdminPage() {
                                                 ? "border-red-900 bg-red-950/40 text-red-300"
                                                 : "border-neutral-800 bg-neutral-900 text-neutral-100")
                                     }
-                                    title={`${dateISO} - ${reservationCount} reserva${reservationCount !== 1 ? 's' : ''} confirmada${reservationCount !== 1 ? 's' : ''}\nClick izquierdo: ${reservationCount > 0 ? 'Ver reservas' : 'Habilitar/Deshabilitar'}\nClick derecho: Habilitar/Deshabilitar`}
+                                    title={`${dateISO} - ${reservationCount} reserva${reservationCount !== 1 ? 's' : ''} confirmada${reservationCount !== 1 ? 's' : ''}\nClick izquierdo: ${reservationCount > 0 ? 'Ver reservas' : 'Habilitar/Deshabilitar'}\nClick derecho: Modificar capacidad del día`}
                                 >
                                     {/* número del día en la esquina superior izquierda para alejarlo del badge */}
                                     <div className="absolute left-1 top-1 font-medium leading-none">{d.getDate()}</div>
@@ -299,7 +416,7 @@ export default function CalendarioAdminPage() {
                                             <th>Nombre y apellido</th>
                                             <th>Pax</th>
                                             <th>Tipo</th>
-                                            <th>Circuito</th>
+                                            <th>Movilidad reducida</th>
                                             <th>Email</th>
                                             <th>Teléfono</th>
                                         </tr>
@@ -314,7 +431,8 @@ export default function CalendarioAdminPage() {
                                                         <td>{formatName(fullName) || "-"}</td>
                                                         <td>{r.personas ?? "-"}</td>
                                                         <td>{r.tipoVisitante ?? "-"}</td>
-                                                        <td>{r.circuito ?? "-"}</td>
+                                                        {/* <td>{r.circuito ?? "-"}</td> */}
+                                                        <td>{r.movilidadReducida ?? "-"}</td>
                                                         <td> {r.correo ?? "-"}</td>
                                                         <td>{r.telefono ?? "-"}</td>
                                                     </tr>
