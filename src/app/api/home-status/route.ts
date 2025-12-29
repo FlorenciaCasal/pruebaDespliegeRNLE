@@ -6,7 +6,7 @@ export type FireRiskLevel = "BAJO" | "MODERADO" | "ALTO";
 export async function GET() {
   try {
     const res = await fetch(
-      "https://api.open-meteo.com/v1/forecast?latitude=-41.87&longitude=-71.50&current_weather=true&timezone=America/Argentina/Buenos_Aires",
+      "https://api.open-meteo.com/v1/forecast?latitude=-41.70025&longitude=-71.61758&current_weather=true&timezone=America/Argentina/Buenos_Aires",
       { cache: "no-store" }
     );
 

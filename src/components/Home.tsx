@@ -28,9 +28,9 @@ type HomeStatusResponse =
 
 function FireRiskGauge({ level }: { level: FireRiskLevel }) {
   const angle = {
-    BAJO: -90,
-    MODERADO: 0,
-    ALTO: 90,
+    BAJO: -150,
+    MODERADO: -90,
+    ALTO: -30,
   }[level];
 
   return (
@@ -126,5 +126,4 @@ export default function HomeStatus() {
     </section>
   );
 }
-
 
