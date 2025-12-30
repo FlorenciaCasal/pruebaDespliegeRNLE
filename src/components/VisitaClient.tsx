@@ -50,7 +50,7 @@ export default function VisitaPage() {
       <section className="flex-1 flex flex-col h-full lg:flex-row items-stretch min-h-0">
         <div className="relative flex-1 flex min-h-[40vh] lg:min-h-0 ">
           <Image
-            src="/img/form.jpeg"
+            src="/img/home.jpeg"
             alt="Lago Escondido"
             fill
             priority

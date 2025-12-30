@@ -31,28 +31,89 @@ export default function NavbarClient({ isLogged, isAdmin, isAdminLimit }: { isLo
       <nav
         className={`
         w-full sticky top-0 z-50 transition-colors duration-300 
-       bg-primary text-surface
+       bg-background text-primary
       `}
       >
-        <div className="mx-auto max-w-7xl px-3 sm:px-16">
-          <div className="flex items-center justify-between gap-4 py-1">
+        <div className="mx-auto max-w-7xl px-3 sm:px-4 lg:px-12 xl:px-16">
+          {/* <div className="flex items-center justify-between gap-4 py-1"> */}
+          <div className="flex items-center justify-between py-3">
 
-            {/* LOGO */}
-            <Link href="/">
-              <Image
-                src="/img/logo1.png"
-                alt="Reserva Natural Lago Escondido"
-                width={160}
-                height={40}
-                priority
-                className="w-auto h-14 md:h-16 "
-              />
-            </Link>
+            {/* ===== IZQUIERDA: LOGO + NAV ===== */}
+            <div className="flex items-center gap-0">
+              {/* LOGO */}
+              <Link href="/">
+                <Image
+                  src="/img/logo1.png"
+                  alt="Reserva Natural Lago Escondido"
+                  width={160}
+                  height={40}
+                  priority
+                  className="w-auto h-14 md:h-16 "
+                />
+              </Link>
+              {/* NAV PÚBLICO (placeholders) */}
+              <div className="hidden sm:flex items-center gap-4 text-sm text-primary">
+                <span className="cursor-default">PROYECTOS</span>
+                <span className="cursor-default">CONTACTO</span>
+              </div>
+            </div>
+
+
+            {/* ===== DERECHA: ACCIONES ===== */}
+            <div className="hidden sm:flex items-center gap-4 text-sm">
+
+              {(isHome || isVisitas) && (isLogged && (isAdmin || isAdminLimit)) && (
+                <Link
+                  href="/admin"
+                  className="text-primary hover:text-secondary-dark transition"
+                >
+                  ADMIN
+                </Link>
+              )}
+
+              {!isLogged ? (
+                <Link
+                  href="/login"
+                  className="text-primary hover:text-secondary-dark transition"
+                >
+                  INGRESAR
+                </Link>
+              ) : (
+                <LogoutButton />
+              )}
+
+              {showHomeLink && (
+                <Link
+                  href="/"
+                  className="text-primary transition hover:text-secondary-dark"
+                > <span className=" cursor-pointer">
+                    INICIO
+                  </span>
+                </Link>
+              )}
+
+              {showVisitasLink && (
+                <Link
+                  href="/visitas"
+                  className="
+          ml-2 rounded-full bg-primary px-4 py-1.5
+          text-white text-sm 
+          hover:opacity-90 transition
+        "
+                >
+                  VISITANOS
+                </Link>
+              )}
+            </div>
+
+
+
+
 
             {/* BOTÓN HAMBURGUESA (solo mobile) */}
             <button
               aria-label="Abrir menú"
-              className="sm:hidden text-white px-2 py-1"
+              className="sm:hidden text-primary px-2 py-1"
               onClick={() => setOpen(true)}
             >
               <svg viewBox="0 0 24 24" className="w-6 h-6 fill-current">
@@ -62,51 +123,6 @@ export default function NavbarClient({ isLogged, isAdmin, isAdminLimit }: { isLo
               </svg>
             </button>
 
-
-            {/* LINKS DESKTOP */}
-            {/* <div className="flex items-center justify-end text-text gap-2 sm:gap-6 text-xs font-semibold"> */}
-            <div className="hidden sm:flex items-center justify-end text-surface gap-6 text-sm font-semibold">
-
-              {showHomeLink && (
-                <Link
-                  href="/"
-                  className="transition hover:text-secondary-dark"
-                >
-                  INICIO
-                </Link>
-              )}
-
-              {showVisitasLink && (
-                <Link
-                  href="/visitas"
-                  className="transition hover:text-secondary-dark"
-                >
-                  VENÍ A CONOCER
-                </Link>
-              )}
-
-              {(isHome || isVisitas) && (isLogged && isAdmin || isAdminLimit) && (
-                <Link
-                  href="/admin"
-                  className="transition hover:text-secondary-dark"
-                >
-                  <span className="md:hidden">ADMIN</span>
-                  <span className="hidden md:inline">PANEL DE ADMINISTRACIÓN</span>
-                </Link>
-              )}
-
-              {!isLogged ? (
-                <Link
-                  href="/login"
-                  className="transition hover:text-secondary-dark"
-                >
-                  INGRESAR
-                </Link>
-              ) : (
-                <LogoutButton />
-              )}
-
-            </div>
           </div>
         </div>
       </nav>
@@ -165,7 +181,7 @@ export default function NavbarClient({ isLogged, isAdmin, isAdminLimit }: { isLo
                   href="/visitas"
                   className="block rounded-xl px-3 py-2 hover:bg-neutral-800"
                 >
-                  Vení a conocer
+                  Visitanos
                 </Link>
               </li>
             )}

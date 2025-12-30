@@ -96,7 +96,9 @@ export default function HomeStatus() {
   if (!data) return null;
 
   return (
-    <section className="flex flex-col items-center sm:max-w-md rounded-2xl border border-neutral-800 bg-white p-5 text-main">
+    // <section className="flex flex-col items-center sm:max-w-md rounded-2xl border border-neutral-800 bg-white p-5 text-main">
+    <section className="flex flex-col items-center sm:max-w-md rounded-2xl bg-white p-5 text-main shadow-sm">
+
       <h2 className="text-base font-semibold">
         Clima · Lago Escondido
       </h2>
