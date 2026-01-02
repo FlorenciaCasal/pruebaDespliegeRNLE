@@ -106,10 +106,6 @@ export default function NavbarClient({ isLogged, isAdmin, isAdminLimit }: { isLo
               )}
             </div>
 
-
-
-
-
             {/* BOTÓN HAMBURGUESA (solo mobile) */}
             <button
               aria-label="Abrir menú"

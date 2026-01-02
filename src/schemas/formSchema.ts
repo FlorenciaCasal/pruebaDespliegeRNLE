@@ -54,14 +54,6 @@ export const dniSchema = yup
   .required("Completá el DNI.")
   .matches(/^\d{8}$/, "DNI inválido: deben ser exactamente 8 dígitos.");
 
-// export const telefonoSchema = yup
-//   .string()
-//   .transform(v => String(v ?? "").replace(/\D+/g, ""))
-//   .test(
-//     "telefono-opcional",
-//     "Teléfono inválido: deben ser exactamente 10 dígitos.",
-//     v => !v || /^\d{10}$/.test(v)
-//   );
 export const telefonoSchema = yup
   .string()
   .test(
@@ -85,7 +77,3 @@ export const visitanteSchema = yup.object({
   dni: dniSchema,
   telefono: telefonoSchema,
 }).required();
-
-// export const TelefonoNRSchema = yup.object({
-//   telefono: telefonoSchema.transform(v => String(v ?? "").replace(/\D+/g, "")),
-// }).notRequired();
