@@ -43,7 +43,7 @@ export default function NavbarClient({ isLogged, isAdmin, isAdminLimit }: { isLo
               {/* LOGO */}
               <Link href="/">
                 <Image
-                  src="/img/logo1.png"
+                  src="/img/logoReserva.jpeg"
                   alt="Reserva Natural Lago Escondido"
                   width={160}
                   height={40}
