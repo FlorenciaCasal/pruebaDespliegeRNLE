@@ -133,7 +133,7 @@ export default function ReservationWizard({
 
   return (
     <div className="text-main">
-      <h1 className="text-2xl text-center font-semibold text-black mb-4">Reserva tu visita</h1>
+      <h1 className="text-2xl text-center font-semibold text-primary mb-4">Reserva tu visita</h1>
 
       {/* Steps */}
       <div className="grid grid-cols-1 gap-3">
@@ -142,7 +142,7 @@ export default function ReservationWizard({
           value={tipoVisitante ? (tipoVisitante === "PARTICULAR" ? "Particular" : "Institución educativa") : undefined}
           onClick={() => setOpen("TYPE")}
           error={!!errors.tipoVisitante}
-          className="w-full rounded-xl border border-button bg-[#FFFFFF] text-neutral-900 hover:border-button hover:bg-button-50/40 transition"
+          className="w-full rounded-xl border border-primary bg-[#FFFFFF] text-neutral-900 hover:border-primary hover:bg-primary-50/40 transition"
         />
         {/* <Step
           label="Circuito"
@@ -158,7 +158,7 @@ export default function ReservationWizard({
           // disabled={!circuito}
           disabled={!tipoVisitante || isSchoolSoldOut}
           error={!!errors.fechaISO}
-          className="w-full rounded-xl border border-button bg-transparent text-neutral-900 hover:border-button hover:bg-button-50/40 transition"
+          className="w-full rounded-xl border border-primary bg-transparent text-neutral-900 hover:border-primary hover:bg-primary-50/40 transition"
         />
         <Step
           label="Visitantes"
@@ -174,7 +174,7 @@ export default function ReservationWizard({
           // disabled={!fechaISO}
           disabled={!fechaISO || noAvailability}
           error={!!errors.adultos || !!errors.ninos || !!errors.bebes}
-          className="w-full rounded-xl border border-button bg-transparent text-neutral-900 hover:border-button hover:bg-button-50/40 transition"
+          className="w-full rounded-xl border border-primary bg-transparent text-neutral-900 hover:border-primary hover:bg-primary-50/40 transition"
         />
         {noAvailability && (
           <p className="mt-2 text-sm text-red-600">
@@ -296,7 +296,7 @@ export default function ReservationWizard({
       </SidePanel>
 
       {/* Panel: Visitantes */}
-      <SidePanel open={open === "VISITORS"} title="Visitantes" onClose={() => setOpen(null)}>
+      <SidePanel open={open === "VISITORS"} title="Cantidad de visitantes" onClose={() => setOpen(null)}>
         <CounterRow
           title="Adultos"
           subtitle="18 años o más"
@@ -322,7 +322,7 @@ export default function ReservationWizard({
         </div>
 
         <div className="flex justify-end pt-3">
-          <button type="button" className="rounded-md bg-white border border-button w-full text-button px-4 py-2 disabled:opacity-40"
+          <button type="button" className="rounded-md bg-primary w-full text-white px-4 py-2 disabled:opacity-40"
             disabled={!visitorsValid} onClick={async () => {
               const ok = await trigger(["adultos", "ninos", "bebes"]); // sincroniza errors/isValid
               if (!ok) return;
@@ -341,7 +341,7 @@ export default function ReservationWizard({
       )}
 
       {availability && !loadingAvailability && (
-        <p className="text-sm text-emerald-500 mt-2">
+        <p className="text-sm text-primary mt-2">
           Quedan <strong>{availability.remaining}</strong> lugares disponibles para esta fecha.
         </p>
       )}
@@ -366,8 +366,8 @@ export default function ReservationWizard({
             // si es válido continúa
           }}
           className={`
-    w-full rounded-lg bg-button text-white px-5 py-3 font-medium 
-    ${!isValid ? "cursor-not-allowed" : "hover:bg-primary-light"}
+    w-full rounded-lg bg-primary text-white px-5 py-3 font-medium 
+    ${!isValid ? "cursor-not-allowed" : "hover:bg-primary/80"}
   `}
         >
           Continuar

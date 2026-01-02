@@ -4,20 +4,20 @@ export default function PoliciesContent() {
             <header className="mb-10">
                 <h1 className="text-3xl text-black text-center ">Reserva Natural Lago Escondido. RNLE.</h1>
                 <br />
-                <h1 className="text-3xl text-secondary-dark font-semibold">Política de Visitas y Privacidad.</h1>
+                <h1 className="text-3xl text-primary font-semibold">Política de Visitas y Privacidad</h1>
                 <p className="mt-2 text-[#333] text-justify">
-                    Nuestro principal objetivo es que quienes nos visitan tengan una experiencia enriquecedora, que compartamos el ambiente sano como valor a legar a las generaciones futuras y que disfrutemos de un trato respetuoso.
+                    Nuestro principal objetivo es que nuestros visitantes tengan una experiencia enriquecedora, compartiendo un ambiente sano y manteniendo un trato respetuoso con la naturaleza y las personas.
                 </p>
                 {/* <p className="mt-2 text-sm text-#F5F5F5/60">Última actualización: {UPDATED_AT}</p> */}
             </header>
 
             {/* Índice */}
             <nav aria-label="Índice" className="mb-8">
-                <h2 className="text-xl text-primary-dark font-semibold mb-3">Índice</h2>
-                <ul className="list-disc pl-6 text-secondary-dark space-y-1 text-#F5F5F5">
+                <h2 className="text-xl text-primary font-semibold mb-3">Índice</h2>
+                <ul className="list-disc pl-6 text-[#333] space-y-1 text-#F5F5F5">
                     <li><a className="underline hover:opacity-90" href="#alcance">Alcance</a></li>
                     <li><a className="underline hover:opacity-90" href="#responsabilidad">Responsabilidad</a></li>
-                    <li><a className="underline hover:opacity-90" href="#horarios">Horarios Ingreso/Egreso</a></li>
+                    <li><a className="underline hover:opacity-90" href="#horarios">Horarios, ingreso y egreso</a></li>
                     <li><a className="underline hover:opacity-90" href="#durante">Durante la visita</a></li>
                     <li><a className="underline hover:opacity-90" href="#menores">Menores</a></li>
                     <li><a className="underline hover:opacity-90" href="#mascotas">Mascotas</a></li>
@@ -58,7 +58,7 @@ export default function PoliciesContent() {
             </section>
 
             <section id="horarios" className="mb-10">
-                <h2 className="text-2xl text-heading font-semibold mb-3">Horarios Ingreso/Egreso</h2>
+                <h2 className="text-2xl text-heading font-semibold mb-3">Horarios, ingreso y egreso</h2>
                 <p>
                     Con la confirmación de la visita se indicará día y horario de realización, el visitante deberá:
                     <br /> Presentarse en el puesto de ingreso con 15 minutos de anticipación al horario asignado, el que no tiene plazo de tolerancia.

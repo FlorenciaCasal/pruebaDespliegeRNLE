@@ -3,6 +3,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import { ToastProvider } from "@/components/ui/Toast";
 import Footer from "@/components/Footer";
+import { Montserrat } from "next/font/google";
 
 
 export const metadata: Metadata = {
@@ -10,11 +11,18 @@ export const metadata: Metadata = {
   description: "Reserva Natural Lago Escondido",
 };
 
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  display: "swap",
+  variable: "--font-sans",
+});
+
 export default function RootLayout({ children, }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es">
+    <html lang="es" className={montserrat.variable}>
       <body
         className="min-h-dvh flex flex-col antialiased"
       >

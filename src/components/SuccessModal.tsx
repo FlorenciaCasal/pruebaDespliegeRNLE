@@ -47,7 +47,7 @@ export default function SuccessModal({
 
           {/* Caja */}
           <motion.div
-            className="relative mx-4 w-full max-w-md rounded-2xl bg-gray-900 text-white border border-white/10 p-6 shadow-2xl"
+            className="relative mx-4 w-full max-w-md rounded-2xl bg-white text-primary border border-white/10 p-6 shadow-2xl"
             initial={{ scale: 0.95, y: 10, opacity: 0 }}
             animate={{ scale: 1, y: 0, opacity: 1 }}
             exit={{ scale: 0.95, y: 10, opacity: 0 }}
@@ -71,7 +71,7 @@ export default function SuccessModal({
             <h3 className="text-center text-2xl font-bold leading-tight">
               {title}
             </h3>
-            <p className="mt-3 text-center text-white/80">{text}</p>
+            <p className="mt-3 text-center text-primary">{text}</p>
 
             {!noButtons && (
               <div className="mt-6 flex justify-center gap-3">
@@ -86,7 +86,7 @@ export default function SuccessModal({
                 )}
                 <button
                   type="button"
-                  className="rounded-lg bg-white text-gray-900 px-4 py-2 hover:opacity-90"
+                  className="rounded-lg bg-white font-semibold border border-primary text-primary px-4 py-2 hover:opacity-90"
                   onClick={onPrimary ?? onClose}
                 >
                   {primaryLabel}

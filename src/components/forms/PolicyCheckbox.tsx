@@ -26,7 +26,7 @@ export default function PolicyCheckbox({
           <button
             type="button"
             onClick={() => setOpen(true)}
-            className="underline text-button"
+            className="underline text-primary"
           >
             políticas de visita
           </button>

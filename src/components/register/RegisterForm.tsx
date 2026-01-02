@@ -127,17 +127,17 @@ export default function RegisterForm({
         ...(extraListado === 0 ? [] : [{ label: "Listado de visitantes", type: "listado" as const }]),
         { label: "Datos de salud o movilidad", type: "salud" as const },
         // { label: "Encuesta rápida", type: "conociste" as const },
-        { label: "Revisión y envío", type: "submit" as const },
+        { label: "Confirmación de datos", type: "submit" as const },
       ] as const;
     }
     // PARTICULAR
     return [
-      { label: "Datos de la persona que hace la reserva", type: "contacto" as const },
+      { label: "Tus datos", type: "contacto" as const },
       // { label: "Listado de visitantes", type: "listado" as const },
       ...(extraListado === 0 ? [] : [{ label: "Listado de visitantes", type: "listado" as const }]),
       { label: "Datos de salud o movilidad", type: "salud" as const },
       // { label: "Encuesta rápida", type: "conociste" as const },
-      { label: "Revisión y envío", type: "submit" as const },
+      { label: "Confirmación de datos", type: "submit" as const },
     ] as const;
   }, [tipo, extraListado]);
 
@@ -415,7 +415,7 @@ export default function RegisterForm({
         visitantes: composeVisitantes(),
       });
       reset();
-      setSuccessMsg("¡Reserva enviada con éxito!");
+      setSuccessMsg("¡Solicitud enviada con éxito!");
     } catch (e: unknown) {
       const err = isAppError(e) ? e : new Error("Error desconocido");
       if ((err as AppError).code === "DUPLICATE_DNI_DATE" || /DNI.+fecha/i.test(err.message ?? "")) {
@@ -435,7 +435,7 @@ export default function RegisterForm({
       <form onSubmit={handleSubmit(onSubmit)}
         // className="w-full max-w-3xl text-left px-4 sm:px-6 py-6 text-main overflow-x-hidden"
         className="w-full max-w-3xl text-left px-2 sm:px-6 py-6 text-main overflow-x-hidden"
->
+      >
         {serverError && (
           <div className="mb-4 rounded-lg bg-red-600/20 border border-red-600 px-3 py-2 text-sm">
             {serverError}
@@ -508,7 +508,7 @@ export default function RegisterForm({
               <button
                 type="button"
                 onClick={prevStep}
-                className="px-4 py-2 w-28 md:w-36 sm:px-6 sm:py-3 rounded-lg border-2 border-button text-button hover:bg-white hover:text-gray-900 transition cursor-pointer"
+                className="px-4 py-2 w-28 md:w-36 sm:px-6 sm:py-3 rounded-lg border-2 border-primary text-primary bg-white hover:text-white hover:bg-primary transition cursor-pointer"
               >
                 Volver
               </button>
@@ -518,7 +518,7 @@ export default function RegisterForm({
                   <button
                     type="submit"
                     disabled={submitting || !aceptaReglas}
-                    className="px-4 py-2 w-28 md:w-36 sm:px-6 sm:py-3 rounded-lg bg-button text-white hover:opacity-90 transition disabled:opacity-40 cursor-pointer"
+                    className="px-4 py-2 w-28 md:w-36 sm:px-6 sm:py-3 rounded-lg bg-primary text-white border-2 border-transparent hover:opacity-90 transition disabled:opacity-40 cursor-pointer"
                   >
                     Enviar
                   </button>
@@ -526,7 +526,7 @@ export default function RegisterForm({
                   <button
                     type="button"
                     onClick={guardedNext}
-                    className="px-4 py-2 w-28 md:w-36 sm:px-6 sm:py-3 rounded-lg bg-white text-button hover:bg-transparent hover:text-gray-900 hover:border-2 hover:border-button cursor-pointer"
+                    className="px-4 py-2 w-28 md:w-36 sm:px-6 sm:py-3 rounded-lg bg-primary text-white border-2 border-transparent hover:text-primary hover:bg-white hover:border-2 hover:border-primary cursor-pointer"
                   >
                     Continuar
                   </button>
@@ -540,7 +540,7 @@ export default function RegisterForm({
       <SuccessModal
         open={!!successMsg}
         title={successMsg ?? "¡Listo!"}
-        text="Vas a recibir la confirmación a través de WhatsApp en las próximas horas."
+        text="Tu reserva será confirmada en WhatsApp durante las próximas horas."
         primaryLabel="Volver al inicio"
         onPrimary={() => {
           setSuccessMsg(null);

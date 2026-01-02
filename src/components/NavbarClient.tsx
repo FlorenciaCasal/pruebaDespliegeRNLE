@@ -31,7 +31,7 @@ export default function NavbarClient({ isLogged, isAdmin, isAdminLimit }: { isLo
       <nav
         className={`
         w-full sticky top-0 z-50 transition-colors duration-300 
-       bg-background text-primary
+       bg-background text-primary border-b border-white
       `}
       >
         <div className="mx-auto max-w-7xl px-3 sm:px-4 lg:px-12 xl:px-16">

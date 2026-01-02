@@ -1,5 +1,5 @@
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap'); */
 
 
 /* ====== Paleta semántica ====== */
@@ -7,7 +7,7 @@
   /* Base actual */
   --background: #F3F3F3;
   /* --background: #F3EFE7; */
-    /* --background: #Ff5f5; */
+  /* --background: #Ff5f5; */
 
   /* Texto principal (gris oscuro) */
   --text-main: #2D2D2D;
@@ -68,7 +68,7 @@
   --color-link: var(--secondary);
   --color-button: var(--yellow);
   --color-yellow: var(--yellow);
-  --font-sans: 'Open Sans', sans-serif;
+  --font-family-sans: var(--font-sans);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -95,12 +95,44 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: 'Open Sans', sans-serif;
+  font-family: var(--font-sans);
 }
+
+h2 {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+h2 {
+  font-size: 21px;
+  font-weight: 700;
+}
+
+h3 {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+footer {
+  font-size: 9px;
+}
+
 
 @media (max-width: 767px) {
   .rdp {
     font-size: 14px !important;
+  }
+
+  h1 {
+    font-size: 21px;
+  }
+
+  h2 {
+    font-size: 18px;
+  }
+
+  h3 {
+    font-size: 16px;
   }
 
   .rdp-caption_label,
@@ -222,4 +254,3 @@ input[type="number"]::-webkit-outer-spin-button {
     -webkit-mask-image: linear-gradient(to right, transparent 0, black 16px, black calc(100% - 16px), transparent 100%);
   }
 }
-

@@ -21,7 +21,7 @@ export default function SaludStep({ register, watch, setValue, totalPersonas, ux
     Math.max(0, Math.min(Number.isFinite(n) ? n : 0, totalPersonas));
 
   const comentariosPlaceholder = movSi
-    ? "Indicá requerimientos para personas con movilidad reducida…"
+    ? "Información que consideres que debemos tener en cuenta."
     : "Escribí cualquier información adicional relevante…";
 
   return (
@@ -41,7 +41,7 @@ export default function SaludStep({ register, watch, setValue, totalPersonas, ux
               <input
                 type="radio"
                 // className="accent-white"
-                className="accent-gray-800 w-4 h-4 rounded-full focus-visible:outline-none focus-visible:ring-0"
+                className="accent-primary w-4 h-4 rounded-full focus-visible:outline-none focus-visible:ring-0"
 
                 checked={movSiNo === "si"}
                 onChange={() => {
@@ -55,7 +55,7 @@ export default function SaludStep({ register, watch, setValue, totalPersonas, ux
               <input
                 type="radio"
                 // className="accent-white"
-                className="accent-gray-800 w-4 h-4 rounded-full focus-visible:outline-none focus-visible:ring-0"
+                className="accent-primary w-4 h-4 rounded-full focus-visible:outline-none focus-visible:ring-0"
 
                 checked={movSiNo === "no"}
                 onChange={() => {
@@ -92,7 +92,7 @@ export default function SaludStep({ register, watch, setValue, totalPersonas, ux
 
       {/* Comentarios */}
       <section className="space-y-2">
-        <label className="px-2 font-medium">Comentarios (opcional)</label>
+        <label className="px-2 font-medium">Aclaraciones (opcionales)</label>
         <textarea
           {...register("comentarios")}
           rows={4}

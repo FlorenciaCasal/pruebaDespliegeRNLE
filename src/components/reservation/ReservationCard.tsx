@@ -51,11 +51,11 @@ export default function ReservationCard({ data }: { data: ReservationView }) {
 
                 {/* HEADER */}
                 <div className="text-center space-y-2">
-                    <div className="text-green-600 rounded-100 text-4xl">✅</div>
-                    <h1 className="text-xl font-bold">
+                    {/* <div className="text-green-600 rounded-100 text-4xl">✅</div> */}
+                    <h1 className="text-xl text-primary font-bold">
                         ¡Tu Visita ha sido Confirmada!
                     </h1>
-                    <p className="text-gray-600 text-sm">
+                    <p className="text-gray-600 text-sm font-bold">
                         Código de Reserva: <span className="font-semibold">{data.id}</span>
                     </p>
                 </div>
@@ -81,10 +81,10 @@ export default function ReservationCard({ data }: { data: ReservationView }) {
                     <div className="space-y-1">
                         <p className="font-semibold">Horario</p>
                         <p className="text-gray-700">
-                            <span className="text-sm">⏳</span> 09:00 hs</p>
+                            {/* <span className="text-sm">⏳</span> */}
+                            09:00 hs</p>
                         {/* <p className="text-sm">⏳ Por favor, llegá 15 minutos antes.</p> */}
-                        <p className="text-sm text-green-700 flex items-center">
-
+                        <p className="text-sm text-primary flex items-center">
                             Por favor, llegá 15 minutos antes.
                         </p>
                     </div>
@@ -111,7 +111,7 @@ export default function ReservationCard({ data }: { data: ReservationView }) {
                     <a
                         href={mapRoute}
                         target="_blank"
-                        className="block w-full bg-primary-dark hover:bg-primary text-white py-3 rounded-md text-center font-semibold"
+                        className="block w-full bg-primary hover:bg-primary text-white py-3 rounded-md text-center font-semibold"
                     >
                         Abrir en Google Maps
                     </a>
@@ -119,12 +119,14 @@ export default function ReservationCard({ data }: { data: ReservationView }) {
 
                 {/* POLÍTICAS */}
                 <div className="border-t pt-4 space-y-2 text-sm text-gray-700">
-                    <p className="font-semibold text-center text-gray-900">📣 Indicaciones para tu visita</p>
+                    <p className="font-semibold text-center text-gray-900"> Indicaciones para tu visita</p>
                     <ul className="list-disc pl-5 space-y-1">
-                        <li>⏰ Te esperamos 15 minutos antes del horario indicado para organizar el ingreso.</li>
-                        <li>🌿 Ayudanos a cuidar este entorno natural: llevate tus residuos con vos.</li>
-                        <li>🐾 Para proteger la fauna y el equilibrio del lugar, no está permitido ingresar con mascotas.</li>
-                        {/* <li>Si ya tenés una reserva y no podés asistir, por favor avisanos a traves de nuestro WhatsApp.</li> */}
+                        <li>Presentarse 15 minutos antes del horario acordado para una mejor organización de la actividad.</li>
+                        <li>Utilizar calzado adecuado para trekking y llevar gorra, protector solar y agua para mayor comodidad y cuidado personal.</li>
+                        <li>Para preservar el entorno, la experiencia se realiza sin consumo de alimentos dentro de las instalaciones.</li>
+                        <li>Contar con carnet de conducir y seguro del automotor vigente.</li>
+                        <li>Presentar DNI de cada uno de los visitantes al momento del ingreso.</li>
+                        <li>Para proteger la fauna local, la visita se realiza sin mascotas.</li>
                     </ul>
                 </div>
 

@@ -7,12 +7,16 @@ import { getPublicBookingFlags } from "@/services/admin";
 import { useToast } from "@/components/ui/Toast";
 import Image from "next/image";
 import { isVisitante } from "@/utils/visitante";
+import VisitaInfoModal from "@/components/VisitaInfoModal";
+
 
 export default function VisitaPage() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const toast = useToast();
+  const [showInfo, setShowInfo] = useState(false);
+
 
   const [flags, setFlags] = useState<{ individualEnabled: boolean; schoolEnabled: boolean } | null>(null);
   const [showForm, setShowForm] = useState(false);
@@ -45,6 +49,10 @@ export default function VisitaPage() {
   const tipoFromQS =
     isVisitante(vtQS ?? "") ? (vtQS as "PARTICULAR" | "INSTITUCION_EDUCATIVA") : undefined;
 
+  useEffect(() => {
+    setShowInfo(true);
+  }, []);
+
   return (
     <main className="bg-[#f5f5f5] overflow-x-hidden flex-1 flex flex-col min-h-0 h-full">
       <section className="flex-1 flex flex-col h-full lg:flex-row items-stretch min-h-0">
@@ -61,7 +69,7 @@ export default function VisitaPage() {
 
         {/* Derecha: tarjeta clara */}
         {/* <div className="flex-1 flex items-center justify-center p-6 lg:p-8 min-h-0"> */}
-         <div className="flex-1 flex items-center justify-center px-2 py-6 lg:p-8 min-h-0">
+        <div className="flex-1 flex items-center justify-center px-2 py-6 lg:p-8 min-h-0">
           <div className="w-[90vw] max-w-xl lg:max-w-md">
             <Suspense fallback={<div className="text-white">Cargando...</div>}>
               {!(showForm || forceForm) ? (
@@ -106,6 +114,15 @@ export default function VisitaPage() {
           </div>
         </div>
       </section>
+
+      <VisitaInfoModal
+        open={showInfo}
+        onClose={() => {
+          setShowInfo(false);
+          localStorage.setItem("visita-info-seen", "true");
+        }}
+      />
+
     </main>
   );
 }

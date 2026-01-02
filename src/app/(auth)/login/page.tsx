@@ -157,11 +157,6 @@ export default function LoginPage() {
           </form>
         </div>
 
-        {/* Texto legal opcional
-        <p className="mt-4 text-center text-xs text-neutral-500">
-          Al continuar aceptás nuestros <Link href="/terminos" className="underline underline-offset-2">Términos</Link> y la {" "}
-          <Link href="/privacidad" className="underline underline-offset-2">Política de privacidad</Link>.
-        </p> */}
       </div>
     </main>
   );

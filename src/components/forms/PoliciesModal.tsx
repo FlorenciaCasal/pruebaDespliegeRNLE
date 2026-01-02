@@ -62,7 +62,7 @@ export default function PoliciesModal({
             <div className="p-4 border-t">
               <button
                 onClick={onClose}
-                className="w-full rounded-lg bg-button text-white py-2"
+                className="w-full rounded-lg bg-primary text-white py-2"
               >
                 Cerrar
               </button>

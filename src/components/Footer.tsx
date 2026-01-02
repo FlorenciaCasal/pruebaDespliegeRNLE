@@ -29,12 +29,12 @@
 //         "
 //       >
 //         {/* COPYRIGHT */}
-//         <span className="text-sm opacity-90">
+//         <span className="md:text-sm header text-xs opacity-90">
 //           © {new Date().getFullYear()} Reserva Natural Lago Escondido
 //         </span>
 
 //         {/* ENLACES (opcionales) */}
-//         {/* <div className="flex items-center gap-6 text-sm opacity-90"> */}
+//         {/* <div className="flex items-center gap-6 md:text-sm   font-size: 12pxtext-xs opacity-90"> */}
 
 
 
@@ -108,10 +108,10 @@ export default function Footer() {
           <div className="flex flex-col gap-6 sm:flex-row md:gap-20 lg:gap-44 xl:gap-86">
             {/* VISÍTANOS */}
             <div>
-              <h4 className="text-sm tracking-wide opacity-90 mb-2">
+              <h4 className="md:text-sm text-xs tracking-wide opacity-90 mb-2">
                 VISÍTANOS
               </h4>
-              <p className="text-sm opacity-80 leading-relaxed">
+              <p className="md:text-smtext-xs opacity-80 leading-relaxed">
                 Ruta 40 kilómetro 1948, El Foyel,
                 <br />
                 Río Negro, Argentina
@@ -120,10 +120,10 @@ export default function Footer() {
 
             {/* CONTACTO */}
             <div>
-              <h4 className="text-sm tracking-wide opacity-90 mb-2">
+              <h4 className="md:text-sm footer text-xs tracking-wide opacity-90 mb-2">
                 CONTACTO
               </h4>
-              <p className="text-sm opacity-80 break-all">
+              <p className="md:text-sm   font-size: 9pxtext-xs opacity-80 break-all">
                 <a href="mailto:info@reservalagoescondido.com.ar" className="hover:underline">
                   info@reservalagoescondido.com.ar
                 </a>
@@ -132,7 +132,7 @@ export default function Footer() {
 
             {/* SEGUINOS */}
             <div>
-              <h4 className="text-sm tracking-wide opacity-90 mb-2">
+              <h4 className="md:text-sm text-xs tracking-wide opacity-90 mb-2">
                 SEGUINOS
               </h4>
               <div className="flex items-center gap-4">

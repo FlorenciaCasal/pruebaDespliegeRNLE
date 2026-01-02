@@ -56,7 +56,7 @@ export function SidePanel({
         aria-label={title}
       >
         {/* Header */}
-        <div className="flex items-center justify-between border-gray-900 px-5 pt-3">
+        <div className="flex items-center justify-between text-primary border-gray-900 px-5 pt-3">
           <h2 className="text-lg font-semibold">{title}</h2>
           <button
             className="inline-flex h-9 w-9 items-center justify-center rounded-full hover:bg-neutral-100"

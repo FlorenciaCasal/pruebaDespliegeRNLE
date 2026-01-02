@@ -30,33 +30,33 @@ export default function SubmitStep({
 
                 {/* <div className="grid gap-4 grid-cols-1"> */}
                 <div className="rounded-xl bg-white/5 border border-secondary p-4 min-w-0">
-                    <div className="text-sm text-black mb-2">Reserva</div>
+                    <div className="text-sm text-black font-bold mb-2">Reserva</div>
                     <div className="space-y-1 text-sm">
-                        <div><b>Tipo:</b> {tipo === "INSTITUCION_EDUCATIVA" ? "Institución educativa" : "Particular"}</div>
-                        <div><b>Fecha:</b> {watch("fechaISO") || "—"}</div>
-                        <div><b>Total:</b> {(adultos ?? 0) + (ninos ?? 0) + (bebes ?? 0)}</div>
+                        <div>Tipo: {tipo === "INSTITUCION_EDUCATIVA" ? "Institución educativa" : "Particular"}</div>
+                        <div>Fecha: {watch("fechaISO") || "—"}</div>
+                        <div>Total: {(adultos ?? 0) + (ninos ?? 0) + (bebes ?? 0)}</div>
                     </div>
                 </div>
 
                 <div className="rounded-xl bg-white/5 border border-secondary p-4 min-w-0">
-                    <div className="text-sm text-black mb-2">{tipo === "INSTITUCION_EDUCATIVA" ? "Institución" : "Contacto"}</div>
+                    <div className="text-sm text-black font-bold mb-2">{tipo === "INSTITUCION_EDUCATIVA" ? "Institución" : "Contacto"}</div>
                     {tipo === "INSTITUCION_EDUCATIVA" ? (
                         <div className="space-y-1 text-sm">
-                            <div><b>Institución:</b> {watch("institucion") || "—"}</div>
-                            <div><b>Localidad:</b> {watch("institucionLocalidad") || "—"}</div>
-                            <div className="break-words [overflow-wrap:anywhere] max-w-full inline-block"><b>Email:</b> {watch("institucionEmail") || "—"}</div>
-                            <div><b>Teléfono:</b> {watch("institucionTelefono") || "—"}</div>
+                            <div>Institución: {watch("institucion") || "—"}</div>
+                            <div>Localidad: {watch("institucionLocalidad") || "—"}</div>
+                            <div className="break-words [overflow-wrap:anywhere] max-w-full inline-block">Email: {watch("institucionEmail") || "—"}</div>
+                            <div>Teléfono: {watch("institucionTelefono") || "—"}</div>
                             <div className="pt-2">
-                                <b>Responsable:</b> {`${watch("responsableNombre") || ""} ${watch("responsableApellido") || ""}`.trim() || "—"}
+                                Responsable: {`${watch("responsableNombre") || ""} ${watch("responsableApellido") || ""}`.trim() || "—"}
                                 {" "} (DNI {watch("responsableDni") || "—"})
                             </div>
                         </div>
                     ) : (
                         <div className="space-y-1 text-sm">
-                            <div><b>Nombre:</b> {`${watch("nombre") || ""} ${watch("apellido") || ""}`.trim() || "—"}</div>
-                            <div><b>DNI:</b> {watch("dni") || "—"}</div>
-                            <div className="break-words [overflow-wrap:anywhere] max-w-full inline-block"><b>Email:</b> {watch("correo") || "—"}</div>
-                            <div><b>Teléfono:</b> {watch("telefono") || "—"}</div>
+                            <div>Nombre: {`${watch("nombre") || ""} ${watch("apellido") || ""}`.trim() || "—"}</div>
+                            <div>DNI: {watch("dni") || "—"}</div>
+                            <div className="break-words [overflow-wrap:anywhere] max-w-full inline-block">Email: {watch("correo") || "—"}</div>
+                            <div>Teléfono: {watch("telefono") || "—"}</div>
                         </div>
                     )}
                 </div>

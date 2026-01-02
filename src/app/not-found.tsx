@@ -9,7 +9,7 @@ export default function NotFoundPage() {
             </p>
             <Link
                 href="/"
-                className="px-4 py-2 rounded-lg bg-white text-neutral-900 font-semibold"
+                className="px-4 py-2 rounded-lg bg-white text-primary font-semibold"
             >
                 Volver al inicio
             </Link>

@@ -17,8 +17,8 @@ const projects = [
 
 export default function ProjectsGrid() {
     return (
-        <section className="py-12 px-6 bg-background">
-            <h3 className="text-center text-primary text-lg font-semibold mb-8">
+        <section className="py-10 px-6 bg-primary">
+            <h3 className="text-center text-white text-lg font-semibold mb-4">
                 PROYECTOS DE CONSERVACIÓN
             </h3>
 
@@ -26,7 +26,7 @@ export default function ProjectsGrid() {
                 {projects.map((project) => (
                     <div
                         key={project.title}
-                        className="rounded-2xl border-2 border-primary p-4 flex flex-col items-center bg-white"
+                        className="rounded-2xl border-2 border-primary p-2 flex flex-col items-center bg-white"
                     >
                         <div className="relative w-full aspect-square rounded-xl overflow-hidden">
                             <Image
