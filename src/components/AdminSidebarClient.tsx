@@ -51,7 +51,7 @@ export default function AdminSidebarClient({
                 {/* grid principal */}
                 <div className="mx-auto max-w-screen-2xl grid grid-cols-12 gap-6">
                     {/* <div className="hidden xl:flex bg-gray-900 items-center mx-auto px-8 justify-between w-[100vw]"> */}
-                   <div className="hidden sm:flex bg-gray-900 items-center px-8 w-full">
+                   <div className="hidden sm:flex col-span-12 bg-gray-900 items-center px-8 w-full">
 
                         <h1 className="text-base font-medium">Secciones</h1>
                         <div className="h-12 flex items-center gap-x-6  ml-auto">
