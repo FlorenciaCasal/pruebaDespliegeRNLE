@@ -43,18 +43,24 @@ export default function NavbarClient({ isLogged, isAdmin, isAdminLimit }: { isLo
               {/* LOGO */}
               <Link href="/">
                 <Image
-                  src="/img/logoReserva.jpeg"
+                  src="/img/logoReserva.png"
                   alt="Reserva Natural Lago Escondido"
-                  width={160}
+                  width={120}
                   height={40}
                   priority
-                  className="w-auto h-14 md:h-16 "
+                  className="w-auto h-10 md:h-12 "
                 />
               </Link>
               {/* NAV PÚBLICO (placeholders) */}
-              <div className="hidden sm:flex items-center gap-4 text-sm text-primary">
-                <span className="cursor-default">PROYECTOS</span>
-                <span className="cursor-default">CONTACTO</span>
+              <div className="hidden sm:flex items-center gap-4 pl-10 lg:pl-18 text-sm text-primary">
+                {/* <span className="cursor-default">PROYECTOS</span> */}
+                <Link href="/#proyectos" className="hover:text-secondary-dark transition">
+                  PROYECTOS
+                </Link>
+                {/* <span className="cursor-default">CONTACTO</span> */}
+                <Link href="/#footer" className="hover:text-secondary-dark transition">
+    CONTACTO
+  </Link>
               </div>
             </div>
 

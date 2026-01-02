@@ -17,7 +17,7 @@ const projects = [
 
 export default function ProjectsGrid() {
     return (
-        <section className="py-10 px-6 bg-primary">
+        <section id="proyectos" className="py-10 px-6 bg-primary scroll-mt-24">
             <h3 className="text-center text-white text-lg font-semibold mb-4">
                 PROYECTOS DE CONSERVACIÓN
             </h3>

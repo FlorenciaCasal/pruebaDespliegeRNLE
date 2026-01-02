@@ -100,7 +100,7 @@ export default function Footer() {
   if (HIDE_ON.includes(pathname)) return null;
 
   return (
-    <footer className="w-full bg-primary text-white">
+    <footer id="footer" className="w-full bg-primary text-white scroll-mt-24">
       <div className="px-6 py-6">
         <div className="flex justify-center">
           {/* <div className="grid grid-cols-1 gap-10 sm:grid-cols-3 w-full max-w-5xl">
