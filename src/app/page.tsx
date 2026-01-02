@@ -15,7 +15,7 @@
 import Image from "next/image";
 import HomeStatus from "../components/Home";
 import ProjectsGrid from "@/components/ProjectsGrid";
-import ContactSection from "@/components/ContactSection";
+// import ContactSection from "@/components/ContactSection";
 
 export default function Page() {
 
@@ -92,7 +92,7 @@ export default function Page() {
         </div>
       </section>
       {/* ===== CONTACTO ===== */}
-      <ContactSection />
+      {/* <ContactSection /> */}
 
     </main>
   );
