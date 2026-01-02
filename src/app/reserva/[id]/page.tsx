@@ -3,7 +3,6 @@ import ReservationCard, { ReservationView } from "@/components/reservation/Reser
 async function fetchReservation(id: string): Promise<ReservationView> {
     const base = process.env.APP_ORIGIN || "http://localhost:3000";
 
-    console.log("APP_ORIGIN:", process.env.APP_ORIGIN)
     const res = await fetch(`${base}/api/reservations/${id}`, {
         cache: "no-store",
     });

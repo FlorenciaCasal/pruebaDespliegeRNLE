@@ -359,7 +359,7 @@ export default function ReservasPage() {
             /> */}
             <div className="relative">
               {/* {!searchDate && ( */}
-                {isIOS && !searchDate && (
+              {isIOS && !searchDate && (
                 <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-sm text-neutral-400">
                   Fecha de visita
                 </span>
@@ -548,6 +548,7 @@ export default function ReservasPage() {
                   <tr className="[&>th]:px-2 [&>th]:py-2 [&>th]:text-left text-neutral-400 [&>th]:bg-neutral-950/95 lg:[&>th]:sticky lg:[&>th]:top-0">
                     {/* “Creada” solo en xl, para priorizar Acciones en lg */}
                     {/* <th className="w-44 xl:table-cell">Creada</th> */}
+                    <th className="w-32">ID</th>
                     <th className="w-32">Creada</th>
                     <th className="w-32">Fecha de visita</th>
                     <th className="w-44">Nombre y apellido</th>
@@ -572,6 +573,9 @@ export default function ReservasPage() {
                   {data.map(r => (
                     <React.Fragment key={r.id}>
                       <tr className="[&>td]:px-2 [&>td]:py-2 align-center">
+                        <td className="text-xs text-neutral-500 font-mono whitespace-nowrap">
+                          {r.id}
+                        </td>
                         <td className="text-neutral-400 whitespace-nowrap">
                           {new Date(r.createdAt).toLocaleDateString("es-AR")}
                         </td>

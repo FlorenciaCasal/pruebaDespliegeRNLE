@@ -51,9 +51,10 @@ export default function AdminSidebarClient({
                 {/* grid principal */}
                 <div className="mx-auto max-w-screen-2xl grid grid-cols-12 gap-6">
                     {/* <div className="hidden xl:flex bg-gray-900 items-center mx-auto px-8 justify-between w-[100vw]"> */}
-                    <div className="hidden sm:flex bg-gray-900 items-center mx-auto px-8 justify-between w-[100vw]">
+                   <div className="hidden sm:flex bg-gray-900 items-center px-8 w-full">
+
                         <h1 className="text-base font-medium">Secciones</h1>
-                        <div className="h-12 flex items-center gap-x-6">
+                        <div className="h-12 flex items-center gap-x-6  ml-auto">
 
                             <Link href="/admin/reservas"
                                 className={`px-3 py-2 rounded-lg text-sm hover:bg-neutral-800 ${pathname === "/admin/reservas" ? "bg-neutral-800 text-white" : "text-neutral-300"}`}>
@@ -74,7 +75,7 @@ export default function AdminSidebarClient({
                         </div>
                     </div>
                     {/* <main className="col-span-12 px-4 min-w-0"> */}
-                    <main className="col-span-14 px-2 min-w-0">
+                    <main className="col-span-12 px-2 min-w-0">
                         {children}
                     </main>
                 </div>
