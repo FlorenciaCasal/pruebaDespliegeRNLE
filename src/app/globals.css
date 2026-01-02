@@ -71,26 +71,27 @@
   --font-family-sans: var(--font-sans);
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
 
     /* Podés mantener los mismos tonos de marca; acá los aclaro apenas para legibilidad en dark */
-    --surface-verylight: #111111;
+/*   --surface-verylight: #111111;
     --text-main: #ededed;
     --heading: #33A596;
     /* variante un poco más luminosa del verde oscuro */
-    --link: #33BFA8;
+/*  --link: #33BFA8;
     --button: #7FB5A3;
     /* verde medio más visible en dark */
-    --yellow: #D3B04D;
+/*  --yellow: #D3B04D;
     --accent-earth: #9A8E78;
     /* tierra suavemente aclarado */
-    --muted: #1a1a1a;
+/*   --muted: #1a1a1a;
     --border: #2a2a2a;
   }
-}
+} 
+*/
 
 body {
   background: var(--background);
@@ -134,10 +135,10 @@ footer {
   h3 {
     font-size: 16px;
   }
-  
+
   footer {
-  font-size: 10px;
-}
+    font-size: 10px;
+  }
 
   .rdp-caption_label,
   .rdp-weekday,
