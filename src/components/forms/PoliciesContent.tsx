@@ -4,7 +4,7 @@ export default function PoliciesContent() {
             <header className="mb-10">
                 {/* <h1 className="text-3xl text-black text-center ">Reserva Natural Lago Escondido. RNLE.</h1>
                 <br /> */}
-                <h1 className="text-3xl text-center text-primary font-semibold">POLÍTICAS DE VISITA Y PRIVACIDAD</h1>
+                <h2 className="text-center text-primary font-semibold">POLÍTICAS DE VISITA Y PRIVACIDAD</h2>
                 <p className="mt-2 text-[#333] text-justify">
                     Nuestro principal objetivo es que nuestros visitantes tengan una experiencia enriquecedora, compartiendo un ambiente sano y manteniendo un trato respetuoso con la naturaleza y las personas.
                 </p>
@@ -13,7 +13,7 @@ export default function PoliciesContent() {
 
             {/* Índice */}
             <nav aria-label="Índice" className="mb-8">
-                <h2 className="text-xl text-primary font-semibold mb-3">Índice</h2>
+                <h3 className="text-xl text-primary font-semibold mb-3">Índice</h3>
                 <ul className="list-disc pl-6 text-[#333] space-y-1 text-#F5F5F5">
                     <li><a className="underline hover:opacity-90" href="#alcance">Alcance</a></li>
                     <li><a className="underline hover:opacity-90" href="#responsabilidad">Responsabilidad</a></li>
@@ -30,7 +30,7 @@ export default function PoliciesContent() {
             </nav>
 
             <section id="alcance" className="mb-10">
-                <h2 className="text-2xl text-heading font-semibold mb-3">Alcance</h2>
+                <h3 className="text-2xl text-heading font-semibold mb-3">Alcance</h3>
                 <p className="text-justify">
                     Esta Política de Visitas y Privacidad (Políticas), aplica a todas las personas que ingresan a la RNLE. La solicitud de visita supone la plena aceptación de estas, por lo que recomendamos su atenta lectura previo a la aceptación y envío de solicitud de visita.
 
@@ -42,7 +42,7 @@ export default function PoliciesContent() {
             </section>
 
             <section id="responsabilidad" className="mb-10">
-                <h2 className="text-2xl text-heading font-semibold mb-3">Responsabilidad</h2>
+                <h3 className="text-2xl text-heading font-semibold mb-3">Responsabilidad</h3>
                 <p className="text-justify">
                     RNLE es un ambiente silvestre por lo que no nos es posible controlar la totalidad de los sucesos naturales que puedan ocurrir, el visitante entiende y acepta que existen riesgos asociados a animales salvajes y plantas tóxicas, eventos climatológicos o geografía del entorno de la visita.
                     <br />  El visitante debe obedecer nuestras recomendaciones y las indicaciones que puedan darle los guías o personal de la RNLE.
@@ -50,18 +50,18 @@ export default function PoliciesContent() {
 
                 </p>
                 <ul className="space-y-2 text-justify">
-                    <li><h3>De las personas:</h3>
+                    <li><p><strong>De las personas:</strong></p>
                         Con la aceptación de la presente, el visitante declara que ni él ni las personas indicadas en su grupo de visitas posee deficiencia o incapacidad alguna que lo condiciona de cualquier modo o impida la realización de la visita que no hubiere sido especificada según el punto Accesibilidad.
                         <br />   El visitante reconoce que el recorrido de visita es una caminata por un lugar agreste y que tiene la aptitud física para realizarlo.
 
-                        <h3>De los automotores en los cuales se desplazan:</h3>
+                        <p><strong>De los automotores en los cuales se desplazan:</strong></p>
                         Con la aceptación de estas Políticas, el visitante conductor y/o titular del automotor con el cual se desplaza, manifiesta que se hace responsable de ingresar con un automotor convenientemente habilitado, con licencia de conducir habilitante y con el seguro de ley vigente para recorrer un camino privado, de montaña, sinuoso, con zonas de derrumbes y enripiado.
                     </li>
                 </ul>
             </section>
 
             <section id="horarios" className="mb-10">
-                <h2 className="text-2xl text-heading font-semibold mb-3">Horarios, ingreso y egreso</h2>
+                <h3 className="text-2xl text-heading font-semibold mb-3">Horarios, ingreso y egreso</h3>
                 <p>
                     Con la confirmación de la visita se indicará día y horario de realización. Posteriormente, el visitante deberá:
                     <br /> Presentarse en el puesto de ingreso con 15 minutos de antelación al horario asignado, sin margen de tolerancia.
@@ -85,7 +85,7 @@ export default function PoliciesContent() {
             </section>
 
             <section id="durante" className="mb-10">
-                <h2 className="text-2xl text-heading font-semibold mb-3">Durante la visita:</h2>
+                <h3 className="text-2xl text-heading font-semibold mb-3">Durante la visita:</h3>
                 <p>
                     Será acompañado por un guía ambiental
                     <br /> Deberá conducirse por los senderos habilitados e indicados por el guía.
@@ -100,21 +100,21 @@ export default function PoliciesContent() {
             </section>
 
             <section id="menores" className="mb-10">
-                <h2 className="text-2xl text-heading font-semibold mb-3">Menores:</h2>
+                <h3 className="text-2xl text-heading font-semibold mb-3">Menores:</h3>
                 <p>
                     Los menores deben estar acompañados por un adulto responsable en todo momento.
                 </p>
             </section>
 
             <section id="mascotas" className="mb-10">
-                <h2 className="text-2xl text-heading font-semibold mb-3">Mascotas:</h2>
+                <h3 className="text-2xl text-heading font-semibold mb-3">Mascotas:</h3>
                 <p>
                     No está permitido el ingreso con mascotas.
                 </p>
             </section>
 
             <section id="accesibilidad" className="mb-10">
-                <h2 className="text-2xl text-heading font-semibold mb-3">Accesibilidad:</h2>
+                <h3 className="text-2xl text-heading font-semibold mb-3">Accesibilidad:</h3>
                 <p>
                     Si alguna de las personas del grupo vive con algún tipo de discapacidad, por favor indicarlo al momento de efectuar la reserva.
                     <br />Haremos lo posible por realizar las adaptaciones necesarias para que pueda disfrutar de la experiencia de visita en nuestra reserva.
@@ -123,7 +123,7 @@ export default function PoliciesContent() {
             </section>
 
             <section id="actividades" className="mb-10">
-                <h2 className="text-2xl text-heading font-semibold mb-3">Actividades especiales:</h2>
+                <h3 className="text-2xl text-heading font-semibold mb-3">Actividades especiales:</h3>
                 <p>
                     No realizamos actividades como pesca, navegación, fogones, etc.
                     <br />No vendemos comidas, bebidas ni servicio turístico alguno.
@@ -132,7 +132,7 @@ export default function PoliciesContent() {
             </section>
 
             <section id="fotografia" className="mb-10">
-                <h2 className="text-2xl text-heading font-semibold mb-3">Fotografía, drones y registros:</h2>
+                <h3 className="text-2xl text-heading font-semibold mb-3">Fotografía, drones y registros:</h3>
                 <p className="text-justify">
                     Desde e l ingreso y hasta llegar al estacionamiento no está permitido obtener fotografías ni registros alguno.
                     <br />A partir del ingreso al sendero de la RNLE el guía les hará saber que pueden obtener registros audiovisuales.
@@ -145,14 +145,14 @@ export default function PoliciesContent() {
             </section>
 
             <section id="opinion" className="mb-10">
-                <h2 className="text-2xl text-heading font-semibold mb-3">Opinión del visitante:</h2>
+                <h3 className="text-2xl text-heading font-semibold mb-3">Opinión del visitante:</h3>
                 <p>
                     El visitante podrá expresar su opinión o comentario respecto de su experiencia, tanto en nuestro libro de visitas como en forma digital, para lo cual el guía le posibilitará la producción de un registro audio visual. El Visitante autoriza a RNLE en forma gratuita, la reproducción, divulgación y/o exhibición del registro, por cualquier medio y/o red social, sin limitación territorial ni temporal.
                 </p>
             </section>
 
             <section id="proteccion" className="mb-10">
-                <h2 className="text-2xl text-heading font-semibold mb-3">Protección de datos personales:</h2>
+                <h3 className="text-2xl text-heading font-semibold mb-3">Protección de datos personales:</h3>
                 <p>
                     Los datos que nos compartas se usarán exclusivamente para gestionar tu visita y comunicaciones relacionadas (por ejemplo, recordatorios) y análisis de la actividad de nuestra RNLE. Conservamos la información el tiempo necesario para estos fines y aplicamos medidas razonables de seguridad.
                 </p>
