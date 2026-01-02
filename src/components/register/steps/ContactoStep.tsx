@@ -15,7 +15,7 @@ export default function ContactoStep({
     uxError: string | null;
 }) {
     return (
-        <div className="space-y-4 rounded-xl bg-white/5 border border-white/10 p-4">
+        <div className="space-y-4 rounded-xl bg-white/5 border border-white/10 py-4">
             <div className="grid sm:grid-cols-2 gap-3">
                 <div>
                     <label className="block mb-1">Nombre</label>
