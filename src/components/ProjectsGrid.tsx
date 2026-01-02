@@ -3,7 +3,7 @@ import Image from "next/image";
 const projects = [
     {
         title: "HUEMUL",
-        image: "/img/huemul.jpg",
+        image: "/img/huemul2.png",
     },
     {
         title: "ALERCE",
@@ -11,7 +11,7 @@ const projects = [
     },
     {
         title: "DIDYMO",
-        image: "/img/agua.jpg",
+        image: "/img/didymo.jpg",
     },
 ];
 
