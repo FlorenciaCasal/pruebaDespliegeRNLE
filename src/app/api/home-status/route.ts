@@ -21,12 +21,29 @@ export async function GET() {
     const windSpeed: number = current.windspeed;
 
     // Indicador heurístico simple (NO alerta oficial)
-    let fireRisk: FireRiskLevel = "BAJO";
+    // let fireRisk: FireRiskLevel = "BAJO";
 
-    if (temperature >= 30 && windSpeed >= 30) {
-      fireRisk = "ALTO";
-    } else if (temperature >= 25 && windSpeed >= 20) {
+    // if (temperature >= 30 && windSpeed >= 30) {
+    //   fireRisk = "ALTO";
+    // } else if (temperature >= 25 && windSpeed >= 20) {
+    //   fireRisk = "MODERADO";
+    // }
+    let fireRisk: FireRiskLevel;
+
+    // 1️⃣ Riesgo base por temperatura (verano seco)
+    if (temperature < 22) {
+      fireRisk = "BAJO";
+    } else if (temperature < 26) {
       fireRisk = "MODERADO";
+    } else {
+      fireRisk = "ALTO";
+    }
+
+    // 2️⃣ Ajuste por viento (solo empeora)
+    if (windSpeed >= 30) {
+      fireRisk = "ALTO";
+    } else if (windSpeed >= 20) {
+      if (fireRisk === "BAJO") fireRisk = "MODERADO";
     }
 
     return NextResponse.json({
