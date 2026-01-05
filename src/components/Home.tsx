@@ -166,7 +166,7 @@ export default function HomeStatus() {
               {data.weather.temperature}°C
             </div>
           </div>
-          <div className="text-white text-sm"> Indicador de incendios: </div>
+          <div className="text-white text-sm"> Riesgo de incendios: </div>
           <FireRiskGauge level={data.indicator.fireRisk} />
 
           <p className="text-xs text-white border-t border-white py-3">

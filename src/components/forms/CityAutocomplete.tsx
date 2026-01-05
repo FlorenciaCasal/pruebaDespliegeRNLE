@@ -47,7 +47,8 @@ export default function CityAutocomplete({
 
       setFilteredCities(filtered);
       setIsOpen(filtered.length > 0);
-      setSelectedIndex(-1);
+      // setSelectedIndex(-1);
+      setSelectedIndex(filtered.length > 0 ? 0 : -1);
     } else {
       setFilteredCities([]);
       setIsOpen(false);
@@ -70,9 +71,17 @@ export default function CityAutocomplete({
         setSelectedIndex(i => Math.max(i - 1, -1));
         break;
 
+      // case "Enter":
+      //   e.preventDefault();
+      //   if (selectedIndex >= 0) handleSelect(filteredCities[selectedIndex]);
+      //   break;
       case "Enter":
         e.preventDefault();
-        if (selectedIndex >= 0) handleSelect(filteredCities[selectedIndex]);
+        if (selectedIndex >= 0) {
+          handleSelect(filteredCities[selectedIndex]);
+        } else if (filteredCities.length === 1) {
+          handleSelect(filteredCities[0]);
+        }
         break;
 
       case "Escape":

@@ -38,7 +38,12 @@ export default function VisitaInfoModal({ open, onClose }: Props) {
                             ¿En qué consiste la visita?
                         </h2>
 
-                        <div className="text-[12px] text-main leading-relaxed space-y-3">
+                        <div className="text-[12px] md:text-[14px] text-main leading-relaxed space-y-3">
+                            <p>
+                                Las visitas se realizan por la mañana, con inicio a las{" "}
+                                <strong>9:30 hs</strong>.
+                            </p>
+
                             <p>
                                 Haremos una caminata de aproximadamente{" "}
                                 <strong>40 minutos</strong> hasta llegar a una playa en el
