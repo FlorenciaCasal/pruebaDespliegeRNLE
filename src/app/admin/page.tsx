@@ -1,6 +1,5 @@
 import Link from "next/link";
-// import { getAdminSummary, fetchRecentReservations } from "@/services/admin";
-import { fetchRecentReservations } from "@/services/admin";
+import { getAdminSummary, fetchRecentReservations } from "@/services/admin";
 import formatName from "@/utils/formatName";
 
 function StatusBadge({ s }: { s: "PENDING" | "CONFIRMED" | "CANCELLED" }) {
@@ -25,12 +24,11 @@ function fmt(iso?: string) {
 
 export default async function AdminDashboard() {
   try {
-    // const [summary, recent] = await Promise.all([
-    //   getAdminSummary(),
-    //   fetchRecentReservations(10),
-    // ]);
-    const recent = await fetchRecentReservations(10);
-    const summary = { all: 0, today: 0, pending: 0 };
+    const [summary, recent] = await Promise.all([
+      getAdminSummary(),
+      fetchRecentReservations(10),
+    ]);
+
 
     return (
       <div className="space-y-6">
