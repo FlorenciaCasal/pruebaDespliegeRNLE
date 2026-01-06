@@ -74,39 +74,6 @@ export async function fetchReservations(
     params.append("size", String(size));
     const qs = params.toString() ? `?${params}` : "";
     const res = await fetchInternal(`/api/admin/reservations${qs}`);
-    // const backendData = await ok<BackendReservationDTO[]>(res);
-    // console.log("RAW ADMIN BACKEND DATA EJEMPLO:", backendData[backendData.length - 1]);
-    // console.log("RAW ADMIN BACKEND DATA:", backendData);
-
-    // // Mapear del formato backend al formato frontend
-    // return backendData.map((r) => ({
-    //     id: r.id,
-    //     createdAt: r.createdAt,
-    //     reservationDate: r.visitDate,
-    //     circuito: r.circuit as "A" | "B" | "C" | "D",
-    //     tipoVisitante: r.visitorType === "EDUCATIONAL_INSTITUTION" ? "INSTITUCION_EDUCATIVA" :
-    //         r.visitorType === "EVENT" ? "EVENTO" : "PARTICULAR",
-    //     // "EDUCATIONAL_INSTITUTION" ? "INSTITUCION_EDUCATIVA" : "PARTICULAR",
-    //     nombre: r.firstName,
-    //     apellido: r.lastName,
-    //     telefono: r.phone,
-    //     correo: r.email,
-    //     personas: r.adults18Plus + r.children2To17 + r.babiesLessThan2,
-    //     // 👇 detalle pax
-    //     adultos: r.adults18Plus,
-    //     ninos: r.children2To17,
-    //     bebes: r.babiesLessThan2,
-    //     movilidadReducida: r.reducedMobility ?? 0,
-    //     comentarios: r.comment ?? "",
-    //     status: r.status as "PENDING" | "CONFIRMED" | "CANCELLED",
-    //     dni: (r.dni ?? "").replace(/\D+/g, ""), // <--- NUEVO (normalizado)
-    //     // FUTURO: incluir acompañantes normalizados
-    //     companions: r.visitors?.map(c => ({
-    //         nombre: c.firstName,
-    //         apellido: c.lastName,
-    //         dni: (c.dni ?? "").replace(/\D+/g, "")
-    //     })) ?? [],
-    // }));
     const raw = await ok<Page<BackendReservationDTO>>(res);
 
     // Spring Boot Page<T> → usamos content
@@ -212,19 +179,8 @@ export type AdminSummary = {
 };
 
 export async function getAdminSummary(): Promise<AdminSummary> {
-    // const all = await fetchReservations("ALL");
-
-    // const counts = all.reduce(
-    //     (acc, r) => {
-    //         acc.all++;
-    //         acc[r.status]++; // r.status: "PENDING" | "CONFIRMED" | "CANCELLED"
-    //         return acc;
-    //     },
-    //     // keys en MAYÚSCULA para que coincidan con r.status
-    //     { all: 0, PENDING: 0, CONFIRMED: 0, CANCELLED: 0 } as
-    //     { all: number } & Record<AdminReservation["status"], number>
-    // );
-    const { items: all } = await fetchReservations("ALL", undefined, undefined, undefined, 0, 5000);
+    // const { items: all } = await fetchReservations("ALL", undefined, undefined, undefined, 0, 5000);
+    const { items: all } = await fetchReservations(undefined, undefined, undefined, undefined, 0, 5000);
 
     const counts = all.reduce(
         (acc, r) => {
