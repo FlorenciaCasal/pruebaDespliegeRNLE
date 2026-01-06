@@ -27,6 +27,7 @@ export default function AdminUsersPage() {
     const [loading, setLoading] = useState(true);
     const [users, setUsers] = useState<User[]>([]);
     const [errors, setErrors] = useState<FieldErrors>({});
+    const [showPwd, setShowPwd] = useState(false);
 
     // form state
     const [firstName, setFirstName] = useState("");
@@ -333,7 +334,7 @@ export default function AdminUsersPage() {
                                 <p className="text-red-400 text-xs mt-1">{errors.telefono}</p>
                             )}
                         </div>
-                        <div className="flex flex-col">
+                        {/* <div className="flex flex-col">
                             <input
                                 className={`rounded-md bg-neutral-900 px-3 py-2 outline-none
     ${pwdError ? "border border-red-500" : "border border-neutral-700"}`}
@@ -344,6 +345,35 @@ export default function AdminUsersPage() {
                                     setPwdError(null);
                                 }}
                             />
+                            {pwdError && (
+                                <p className="text-red-400 text-xs mt-1">{pwdError}</p>
+                            )}
+                        </div> */}
+                        <div className="relative flex flex-col">
+                            <input
+                                className={`rounded-md bg-neutral-900 px-3 py-2 pr-16 outline-none
+${pwdError ? "border border-red-500" : "border border-neutral-700"}`}
+                                placeholder="Contraseña"
+                                type={showPwd ? "text" : "password"}
+                                value={pwd}
+                                onChange={(e) => {
+                                    setPwd(e.target.value);
+                                    setPwdError(null);
+                                }}
+                            />
+
+                            {/* Botón Mostrar / Ocultar */}
+                            <button
+                                type="button"
+                                tabIndex={-1}
+                                onMouseDown={(e) => e.preventDefault()}
+                                onClick={() => setShowPwd(v => !v)}
+                                className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-neutral-400 hover:text-neutral-200 select-none"
+                                aria-label={showPwd ? "Ocultar contraseña" : "Mostrar contraseña"}
+                            >
+                                {showPwd ? "Ocultar" : "Mostrar"}
+                            </button>
+
                             {pwdError && (
                                 <p className="text-red-400 text-xs mt-1">{pwdError}</p>
                             )}
