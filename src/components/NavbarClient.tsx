@@ -51,7 +51,8 @@ export default function NavbarClient({ isLogged, isAdmin, isAdminLimit }: { isLo
                   width={120}
                   height={40}
                   priority
-                  className="w-auto h-10 md:h-12 "
+                  // className="w-auto h-10 md:h-12 "
+                   className="w-auto h-8 sm:h-10 md:h-12"
                 />
               </Link>
               {/* NAV PÚBLICO (placeholders) */}
