@@ -614,7 +614,7 @@ export default function ReservasPage() {
                         </td>
 
                         {/* 👇 Columna Comentarios */}
-                        <td className="text-xs leading-snug align-top">
+                        {/* <td className="text-xs leading-snug align-top">
                           {r.comentarios && r.comentarios.trim() ? (
                             <div
                               className="text-neutral-400 line-clamp-2"
@@ -622,6 +622,25 @@ export default function ReservasPage() {
                             >
                               {r.comentarios}
                             </div>
+                          ) : (
+                            <span className="text-neutral-500">-</span>
+                          )}
+                        </td> */}
+                        <td className="text-xs leading-snug align-top">
+                          {r.comentarios && r.comentarios.trim() ? (
+                            <button
+                              type="button"
+                              onClick={() => toggleRow(`comment-${r.id}`)}
+                              className="text-left text-neutral-400 hover:text-neutral-200"
+                            >
+                              <div className="line-clamp-2">
+                                {r.comentarios}
+                              </div>
+                              <span className="text-[11px] text-neutral-500 underline">
+                                {openRows[`comment-${r.id}`] ? "Ocultar comentario" : "Ver comentario"}
+                              </span>
+
+                            </button>
                           ) : (
                             <span className="text-neutral-500">-</span>
                           )}
@@ -669,6 +688,16 @@ export default function ReservasPage() {
                           </div>
                         </td>
                       </tr>
+
+                      {openRows[`comment-${r.id}`] && (
+                        <tr>
+                          <td colSpan={14} className="px-4 py-3 bg-neutral-950 text-sm">
+                            <div className="text-neutral-300 whitespace-pre-wrap">
+                              {r.comentarios}
+                            </div>
+                          </td>
+                        </tr>
+                      )}
 
                       {openRows[r.id] && (
                         <tr>
