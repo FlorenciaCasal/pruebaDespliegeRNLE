@@ -74,7 +74,7 @@ export default function NavbarClient({ isLogged, isAdmin, isAdminLimit }: { isLo
               {(isHome || isVisitas || isCalendario || isUsuarios || isReservas) && (isLogged && (isAdmin || isAdminLimit)) && (
                 <Link
                   href="/admin"
-                  className="text-primary hover:text-secondary-dark transition"
+                  className="text-primary hover:text-secondary-dark transition pl-4"
                 >
                   ADMIN
                 </Link>
