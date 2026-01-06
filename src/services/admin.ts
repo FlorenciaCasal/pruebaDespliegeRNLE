@@ -141,21 +141,40 @@ export async function getCalendarState(year: number, month: number): Promise<Cal
     return ok<CalendarMonthState>(res);
 }
 
-const DEFAULT_CAPACITY = Number(process.env.NEXT_PUBLIC_DEFAULT_CAPACITY ?? 30);
+// const DEFAULT_CAPACITY = Number(process.env.NEXT_PUBLIC_DEFAULT_CAPACITY ?? 30);
 
 // Alterna un día: si hoy está deshabilitado, lo habilita; si está habilitado, lo deshabilita.
 // En tu UI llamás: setDayEnabled(dateISO, isDisabled)  → el body manda { disabled: !isDisabled }
-export async function setDayEnabled(dateISO: string, isDisabled: boolean): Promise<void> {
-    // si hoy está deshabilitado (isDisabled=true) → habilitarlo => poner capacidad > 0
-    // si hoy está habilitado          (isDisabled=false) → deshabilitar => capacidad 0
-    const nextCapacity = isDisabled ? DEFAULT_CAPACITY : 0;
+// export async function setDayEnabled(dateISO: string, isDisabled: boolean): Promise<void> {
+//     // si hoy está deshabilitado (isDisabled=true) → habilitarlo => poner capacidad > 0
+//     // si hoy está habilitado          (isDisabled=false) → deshabilitar => capacidad 0
+//     const nextCapacity = isDisabled ? DEFAULT_CAPACITY : 0;
 
-    const res = await fetchInternal(`/api/admin/availability/${dateISO}`, {
+//     const res = await fetchInternal(`/api/admin/availability/${dateISO}`, {
+//         method: "PUT",
+//         headers: { "Content-Type": "application/json" },
+//         body: JSON.stringify({ capacity: nextCapacity }),
+//     });
+//     if (!res.ok) throw new Error(`Error ${res.status} al actualizar el día`);
+// }
+export async function setDayEnabled(dateISO: string, isDisabled: boolean): Promise<void> {
+    let capacity = 0;
+
+    if (isDisabled) {
+        // Si lo vamos a habilitar, pedimos la capacidad real al backend
+        const res = await fetchInternal("/api/admin/config/default-capacity");
+        if (!res.ok) throw new Error("No se pudo obtener la capacidad por defecto");
+        const data = await res.json();
+        capacity = data.capacity;
+    }
+
+    const resp = await fetchInternal(`/api/admin/availability/${dateISO}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ capacity: nextCapacity }),
+        body: JSON.stringify({ capacity }),
     });
-    if (!res.ok) throw new Error(`Error ${res.status} al actualizar el día`);
+
+    if (!resp.ok) throw new Error(`Error ${resp.status} al actualizar el día`);
 }
 
 // Alterna todo el mes

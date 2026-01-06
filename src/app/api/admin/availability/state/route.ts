@@ -1,42 +1,10 @@
-// // src/app/api/admin/availability/state/route.ts  (GET y PUT)
-// import type { NextRequest } from "next/server";
-// import { adminFetch } from "@/app/api/_backend";
 
-// export async function GET(req: NextRequest) {
-//   const url = new URL(req.url);
-//   const qs = url.search ? url.search : "";
-//   const resp = await adminFetch(`/api/admin/availability/state${qs}`);
-//   const text = await resp.text();
-//   return new Response(text, {
-//     status: resp.status,
-//     headers: { "content-type": resp.headers.get("content-type") ?? "application/json" },
-//   });
-// }
-
-// export async function PUT(req: NextRequest) {
-//   const url = new URL(req.url);
-//   const qs = url.search ? url.search : "";
-//   const body = await req.text();
-//   const resp = await adminFetch(`/api/admin/availability/state${qs}`, {
-//     method: "PUT",
-//     body,
-//     headers: { "Content-Type": "application/json" },
-//   });
-//   const text = await resp.text();
-//   return new Response(text, {
-//     status: resp.status,
-//     headers: { "content-type": resp.headers.get("content-type") ?? "application/json" },
-//   });
-// }
-
-// src/app/api/admin/availability/state/route.ts
-// src/app/api/admin/availability/state/route.ts
 import { NextRequest, NextResponse } from "next/server";
 import { publicFetch } from "@/app/api/_backend";
 // import { adminFetch } from "@/app/api/_backend";
 import { backendFetch } from "@/app/api/_backend";
 
-const DEFAULT_CAPACITY = Number(process.env.NEXT_PUBLIC_DEFAULT_CAPACITY ?? 30);
+// const DEFAULT_CAPACITY = Number(process.env.NEXT_PUBLIC_DEFAULT_CAPACITY ?? 30);
 
 type DayDTO = {
   availableDate: string;              // "YYYY-MM-DD"
@@ -115,8 +83,20 @@ export async function PUT(req: NextRequest) {
     disabled = !!j?.disabled;
   } catch { /* vacío = habilitar */ }
 
-  const targetCapacity = disabled ? 0 : DEFAULT_CAPACITY;
+  // const targetCapacity = disabled ? 0 : DEFAULT_CAPACITY;
+  let targetCapacity = 0;
 
+  if (!disabled) {
+    const capRes = await backendFetch("/api/admin/config/default-capacity");
+    if (!capRes.ok) {
+      return NextResponse.json(
+        { message: "No se pudo obtener la capacidad por defecto" },
+        { status: 502 }
+      );
+    }
+    const data = await capRes.json();
+    targetCapacity = data.capacity;
+  }
   const days = allDateISOsOfMonth(year, month);
   for (const iso of days) {
     const resp = await backendFetch(`/api/admin/availability/${iso}`, {
