@@ -180,7 +180,7 @@ export type AdminSummary = {
 
 export async function getAdminSummary(): Promise<AdminSummary> {
     // const { items: all } = await fetchReservations("ALL", undefined, undefined, undefined, 0, 5000);
-    const { items: all } = await fetchReservations(undefined, undefined, undefined, undefined, 0, 5000);
+    const { items: all } = await fetchReservations("ALL", undefined, undefined, undefined, 0, 5000);
 
     const counts = all.reduce(
         (acc, r) => {
