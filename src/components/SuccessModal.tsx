@@ -71,7 +71,7 @@ export default function SuccessModal({
             <h3 className="text-center text-2xl font-bold leading-tight">
               {title}
             </h3>
-            <p className="mt-3 text-center text-primary">{text}</p>
+            <p className="mt-3 text-center text-black">{text}</p>
 
             {!noButtons && (
               <div className="mt-6 flex justify-center gap-3">

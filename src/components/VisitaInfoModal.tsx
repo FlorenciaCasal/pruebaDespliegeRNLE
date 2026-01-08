@@ -41,11 +41,11 @@ export default function VisitaInfoModal({ open, onClose }: Props) {
                         <div className="text-[12px] md:text-[14px] text-main leading-relaxed space-y-3">
                             <p>
                                 Las visitas se realizan por la mañana, con inicio a las{" "}
-                                <strong>9:30 hs</strong>.
+                                <strong>9:30h.</strong>
                             </p>
 
                             <p>
-                                Haremos una caminata de aproximadamente{" "}
+                                Haremos una caminata de, aproximadamente,{" "}
                                 <strong>40 minutos</strong> hasta llegar a una playa en el
                                 Lago Escondido.
                             </p>
@@ -58,7 +58,7 @@ export default function VisitaInfoModal({ open, onClose }: Props) {
                             <p>
                                 Se estima una duración total de{" "}
                                 <strong>dos horas</strong> por un terreno irregular en
-                                montaña con una dificultad <strong>baja–media</strong>.
+                                montaña, con una dificultad <strong>baja–media</strong>.
                             </p>
                         </div>
 
