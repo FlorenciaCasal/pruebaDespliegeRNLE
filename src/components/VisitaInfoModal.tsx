@@ -40,8 +40,10 @@ export default function VisitaInfoModal({ open, onClose }: Props) {
 
                         <div className="text-[12px] md:text-[14px] text-main leading-relaxed space-y-3">
                             <p>
-                                Las visitas se realizan por la mañana, con inicio a las{" "}
-                                <strong>9:30h.</strong>
+                                Las visitas inician a las {" "} <strong>09:30 h.</strong> {" "} en la entrada de Lago Escondido.
+                                <br />
+                                Te pedimos llegar 15 minutos antes del horario indicado para comenzar de manera puntual.
+
                             </p>
 
                             <p>
