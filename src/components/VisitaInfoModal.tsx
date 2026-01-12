@@ -40,26 +40,25 @@ export default function VisitaInfoModal({ open, onClose }: Props) {
 
                         <div className="text-[12px] md:text-[14px] text-main leading-relaxed space-y-3">
                             <p>
-                                Las visitas inician a las {" "} <strong>09:30 h.</strong> {" "} en la entrada de Lago Escondido.
+                                Las visitas se realizan por la mañana, a las {" "} <strong>09:30 h.</strong>
                                 <br />
                                 Te pedimos llegar 15 minutos antes del horario indicado para comenzar de manera puntual.
 
                             </p>
 
                             <p>
-                                Haremos una caminata de, aproximadamente,{" "}
-                                <strong>40 minutos</strong> hasta llegar a una playa en el
-                                Lago Escondido.
+                                Haremos un recorrido de {" "}
+                                <strong>40 minutos</strong> de ida dentro de bosques milenarios que rodean al lago Escondido.
+
                             </p>
 
                             <p>
-                                Descansaremos unos <strong>15 minutos</strong> para luego
-                                emprender la vuelta por el mismo camino.
+                                Descansaremos <strong>15 minutos</strong>  y emprenderemos la vuelta por el mismo recorrido
                             </p>
 
                             <p>
-                                Se estima una duración total de{" "}
-                                <strong>dos horas</strong> por un terreno irregular en
+                                Se estima una duración de, aproximadamente, {" "}
+                                <strong>dos horas</strong> por un terreno irregular de
                                 montaña, con una dificultad <strong>baja–media</strong>.
                             </p>
                         </div>
