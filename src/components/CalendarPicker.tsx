@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { DayPicker } from 'react-day-picker';
 import 'react-day-picker/dist/style.css';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
@@ -26,29 +26,16 @@ type DayDTO = {
     remainingCapacity: number | null;
 };
 
-async function fetchDisabledForMonth(year: number, month: number): Promise<Set<string>> {
-    const mm = String(month).padStart(2, '0');
-    const res = await fetch(`/api/availability-proxy?month=${year}-${mm}`, { cache: 'no-store' });
-    if (!res.ok) throw new Error('No se pudo cargar disponibilidad');
-
-    const data: DayDTO[] = await res.json();
-    // Deshabilitamos si no hay cupo total o no queda cupo
-    const disabled = data
-        .filter(d => (d.totalCapacity ?? 0) <= 0 || (d.remainingCapacity ?? 0) <= 0)
-        .map(d => d.availableDate);
-
-    return new Set(disabled);
-}
 
 export default function CalendarPicker({ selectedISO, onSelectISO }: Props) {
     const [isMobile, setIsMobile] = useState(false);
     const [month, setMonth] = useState(new Date());
-    const [monthsToShow, setMonthsToShow] = useState(6);
+    // const [monthsToShow, setMonthsToShow] = useState(6);
+    const [monthsToShow, setMonthsToShow] = useState(3);
 
-    // // selected Date derivado de selectedISO
-    // const selectedDate = selectedISO ? new Date(selectedISO) : undefined;
+    const fetchedMonthsRef = useRef<Set<string>>(new Set());
+    const todayRef = useRef<Date>(new Date());
 
-    // selected Date derivado de selectedISO (LOCAL, no UTC)
     function fromISODateLocal(iso: string) {
         const [y, m, d] = iso.split('-').map(Number);
         return new Date(y, m - 1, d);
@@ -66,23 +53,77 @@ export default function CalendarPicker({ selectedISO, onSelectISO }: Props) {
         return () => window.removeEventListener('resize', check);
     }, []);
 
-    // Cargar disponibilidad para los meses visibles
+    const fetchDisabledForMonth = async (
+        year: number,
+        month: number
+    ): Promise<Set<string>> => {
+        const key = `${year}-${String(month).padStart(2, '0')}`;
+        // Ya pedido / en progreso: no lo volvemos a pedir
+        if (fetchedMonthsRef.current.has(key)) {
+            return new Set();
+        }
+        // Marcamos ANTES de fetchear (lock)
+        fetchedMonthsRef.current.add(key);
+        try {
+            const res = await fetch(`/api/availability-proxy?month=${key}`, {
+                cache: 'no-store',
+            });
+
+            if (!res.ok) {
+                throw new Error(`No se pudo cargar disponibilidad (${res.status})`);
+            }
+
+            const data: DayDTO[] = await res.json();
+
+            return new Set(
+                data
+                    .filter(d => (d.totalCapacity ?? 0) <= 0 || (d.remainingCapacity ?? 0) <= 0)
+                    .map(d => d.availableDate)
+            );
+        } catch (err) {
+            // Si falló, liberamos para poder reintentar
+            fetchedMonthsRef.current.delete(key);
+            throw err;
+        }
+    };
+
+
     useEffect(() => {
+        let cancelled = false;
+
         const months: Date[] = isMobile
-            ? Array.from({ length: monthsToShow }, (_, i) => addMonths(new Date(), i))
-            : [month, addMonths(month, 1)]; // desktop: mes actual y siguiente
+            ? Array.from({ length: monthsToShow }, (_, i) => addMonths(todayRef.current, i))
+            : [month, addMonths(month, 1)];
 
         setLoading(true);
-        Promise.all(
+
+        Promise.allSettled(
             months.map(d => fetchDisabledForMonth(d.getFullYear(), d.getMonth() + 1))
         )
-            .then(list => {
-                const merged = new Set<string>();
-                for (const s of list) for (const iso of s) merged.add(iso);
-                setDisabledSet(merged);
+            .then(results => {
+                if (cancelled) return;
+
+                setDisabledSet(prev => {
+                    const merged = new Set(prev);
+
+                    for (const r of results) {
+                        if (r.status === "fulfilled") {
+                            for (const iso of r.value) merged.add(iso);
+                        }
+                    }
+
+                    return merged;
+                });
             })
-            .finally(() => setLoading(false));
+            .finally(() => !cancelled && setLoading(false));
+
+        return () => {
+            cancelled = true;
+        };
     }, [isMobile, monthsToShow, month]);
+
+
+
 
     const handleSelect = (date: Date | undefined) => {
         if (!date) return;
@@ -117,7 +158,8 @@ export default function CalendarPicker({ selectedISO, onSelectISO }: Props) {
                 {isMobile ? (
                     <>
                         {Array.from({ length: monthsToShow }, (_, i) => {
-                            const thisMonth = addMonths(new Date(), i);
+                            // const thisMonth = addMonths(new Date(), i);
+                            const thisMonth = addMonths(todayRef.current, i);
                             return (
                                 <div key={i} className="flex bg-white justify-center relative max-w-full sm:max-w-md">
                                     <DayPicker

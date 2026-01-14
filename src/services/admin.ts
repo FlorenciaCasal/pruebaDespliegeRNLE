@@ -15,10 +15,6 @@ const IS_SERVER = typeof window === "undefined";
 const ORIGIN = IS_SERVER ? (process.env.APP_ORIGIN ?? "http://localhost:3000") : "";
 const absolute = (path: string) => (IS_SERVER ? `${ORIGIN}${path}` : path);
 
-// /** En server arma URL absoluta; en client deja la relativa */
-// function absolute(path: string) {
-//     return IS_SERVER ? `${ORIGIN}${path}` : path;
-// }
 
 // ⬇⬇⬇ NUEVO: fetch interno que reenvía cookies en server
 async function fetchInternal(path: string, init: RequestInit = {}) {
@@ -142,22 +138,6 @@ export async function getCalendarState(year: number, month: number): Promise<Cal
     return ok<CalendarMonthState>(res);
 }
 
-// const DEFAULT_CAPACITY = Number(process.env.NEXT_PUBLIC_DEFAULT_CAPACITY ?? 30);
-
-// Alterna un día: si hoy está deshabilitado, lo habilita; si está habilitado, lo deshabilita.
-// En tu UI llamás: setDayEnabled(dateISO, isDisabled)  → el body manda { disabled: !isDisabled }
-// export async function setDayEnabled(dateISO: string, isDisabled: boolean): Promise<void> {
-//     // si hoy está deshabilitado (isDisabled=true) → habilitarlo => poner capacidad > 0
-//     // si hoy está habilitado          (isDisabled=false) → deshabilitar => capacidad 0
-//     const nextCapacity = isDisabled ? DEFAULT_CAPACITY : 0;
-
-//     const res = await fetchInternal(`/api/admin/availability/${dateISO}`, {
-//         method: "PUT",
-//         headers: { "Content-Type": "application/json" },
-//         body: JSON.stringify({ capacity: nextCapacity }),
-//     });
-//     if (!res.ok) throw new Error(`Error ${res.status} al actualizar el día`);
-// }
 export async function setDayEnabled(dateISO: string, isDisabled: boolean): Promise<void> {
     let capacity = 0;
 
@@ -173,10 +153,13 @@ export async function setDayEnabled(dateISO: string, isDisabled: boolean): Promi
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ capacity }),
+        //body: JSON.stringify({ capacity: 0 }),
+
     });
 
     if (!resp.ok) throw new Error(`Error ${resp.status} al actualizar el día`);
 }
+
 
 // Alterna todo el mes
 export async function setMonthEnabled(year: number, month: number, disabled: boolean): Promise<void> {
