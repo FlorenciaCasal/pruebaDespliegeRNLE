@@ -4,7 +4,7 @@ import Navbar from "@/components/Navbar";
 import { ToastProvider } from "@/components/ui/Toast";
 import Footer from "@/components/Footer";
 import { Montserrat } from "next/font/google";
-
+import MaintenancePage from "@/components/MaintenancePage";
 
 export const metadata: Metadata = {
   title: "Reserva Natural Lago Escondido",
@@ -18,17 +18,36 @@ const montserrat = Montserrat({
   variable: "--font-sans",
 });
 
-export default function RootLayout({ children, }: Readonly<{
+const MAINTENANCE =
+  process.env.NEXT_PUBLIC_MAINTENANCE_MODE === "true";
+
+export default function RootLayout({
+  children,
+}: Readonly<{
   children: React.ReactNode;
 }>) {
+
+  // ⛔ MODO MANTENIMIENTO
+  if (MAINTENANCE) {
+    return (
+      <html lang="es" className={montserrat.variable}>
+        <body className="min-h-dvh antialiased">
+          <MaintenancePage />
+        </body>
+      </html>
+    );
+  }
+
+  // ✅ SITIO NORMAL
   return (
     <html lang="es" className={montserrat.variable}>
       <body
-        className="min-h-dvh flex flex-col antialiased"
-      >
+        className="min-h-dvh flex flex-col antialiased">
         <ToastProvider>
           <Navbar />
-          <main className="flex-1 min-h-0 flex flex-col">{children}</main>
+          <main className="flex-1 min-h-0 flex flex-col">
+            {children}
+          </main>
           <Footer />
         </ToastProvider>
       </body>

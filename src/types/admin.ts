@@ -17,6 +17,7 @@ export type AdminReservation = {
     telefono?: string;
     correo?: string;
     personas?: number;
+    vehiclePlate?: string;
     status: "PENDING" | "CONFIRMED" | "CANCELLED";
     // notas?: string;
     dni?: string; // Agregado recientemente para hacer busqueda por dni

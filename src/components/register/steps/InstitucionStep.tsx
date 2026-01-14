@@ -30,10 +30,19 @@ export default function InstitucionStep({
                 <input {...register("institucionTelefono")} placeholder="Teléfono" className={inputBase} />
             </div>
 
-            <div className="grid sm:grid-cols-3 gap-3">
+            <div className="grid sm:grid-cols-2 gap-3">
                 <input {...register("responsableNombre")} placeholder="Nombre" className={inputBase} />
                 <input {...register("responsableApellido")} placeholder="Apellido" className={inputBase} />
                 <input {...register("responsableDni")} placeholder="DNI" className={inputBase} />
+                  {/* Patente (opcional) */}
+                <input
+                    {...register("vehiclePlate", { setValueAs: v => String(v ?? "").trim().toUpperCase() })}
+                    placeholder="Patente del vehículo"
+                    className={inputBase}
+                    type="text"
+                    maxLength={10}
+                    autoComplete="off"
+                />
             </div>
 
             <label className="mt-4 flex items-center justify-between gap-4">

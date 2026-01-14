@@ -98,6 +98,7 @@ export async function fetchReservations(
         apellido: r.lastName,
         telefono: r.phone,
         correo: r.email,
+        vehiclePlate: r.vehiclePlate ?? "",
         personas: r.adults18Plus + r.children2To17 + r.babiesLessThan2,
         adultos: r.adults18Plus,
         ninos: r.children2To17,

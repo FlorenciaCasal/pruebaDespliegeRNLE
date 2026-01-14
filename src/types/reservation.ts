@@ -4,7 +4,13 @@ export type CircuitoKey = "A" | "B" | "C" | "D";
 
 
 export type ReservationFormData = {
-  nombre?: string; apellido?: string; dni?: string; telefono?: string; correo?: string; origenVisita?: string;
+  nombre?: string;
+  apellido?: string;
+  dni?: string;
+  telefono?: string;
+  correo?: string;
+  origenVisita?: string;
+  vehiclePlate?: string;
   adultos: number;        // 18+
   ninos: number;          // 2–17
   bebes: number;          // <2
@@ -46,6 +52,7 @@ export type BackendReservationDTO = {
   children2To17: number;
   babiesLessThan2: number;
   email: string;
+  vehiclePlate?: string,
   phone: string;
   circuit: string;
   visitorType: string;

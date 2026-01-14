@@ -263,26 +263,12 @@ export default function ReservasPage() {
             </svg>
           </button>
 
-          {/* <button
-            onClick={() => exportToExcel(data)}
-            className="rounded-lg border border-neutral-700 px-3 py-1.5 text-sm hover:bg-neutral-800"
-          >
-            Exportar a Excel
-          </button> */}
           <button
             onClick={handleBackendExport}
             className="rounded-lg border border-neutral-700 px-3 py-1.5 text-sm hover:bg-neutral-800"
           >
             Exportar a Excel
           </button>
-
-          {/* Nuevo: toggle de filtros para sm+ */}
-          {/* <button
-            onClick={() => setShowFilters(v => !v)}
-            className="hidden sm:inline-flex rounded-lg border border-neutral-700 px-3 py-1.5 text-sm hover:bg-neutral-800"
-          >
-            {showFilters ? "Ocultar filtros" : `Filtros${activeCount ? ` (${activeCount})` : ""}`}
-          </button> */}
         </div>
       </div>
 
@@ -339,7 +325,6 @@ export default function ReservasPage() {
         )
       }
 
-
       <div
         className={
           // en mobile: esconder si está cerrado y no hay activos; en sm+ siempre visible
@@ -350,13 +335,6 @@ export default function ReservasPage() {
           {/* Fecha */}
           <div className="min-w-0">
             <label className="hidden sm:block text-sm text-neutral-300 mb-2">Buscar por fecha de visita</label>
-            {/* <input
-              type="date"
-              value={searchDate}
-              onChange={(e) => setSearchDate(e.target.value)}
-              placeholder="Fecha de visita"
-              className="w-full rounded-lg border border-neutral-700 bg-white px-3 h-[40px] text-sm text-black placeholder:text-neutral-500 focus:border-neutral-500 focus:outline-none appearance-none"
-            /> */}
             <div className="relative">
               {/* {!searchDate && ( */}
               {isIOS && !searchDate && (
@@ -480,7 +458,7 @@ export default function ReservasPage() {
                   <div> <dt className="text-neutral-400">Email</dt><dd className="break-words">{r.correo ?? "-"}</dd></div>
                   <div> <dt className="text-neutral-400">Teléfono</dt><dd>{r.telefono ?? "-"}</dd></div>
                   <div><dt className="text-neutral-400">Fecha de visita</dt> <div className="text-sm text-white">{new Date(r.reservationDate + "T00:00:00").toLocaleDateString("es-AR")}</div></div>
-
+                  <div> <dt className="text-neutral-400">Patente</dt><dd>{r.vehiclePlate || "—"}</dd></div>
                   {/* 👇 Movilidad reducida */}
                   <div className="mt-2 col-span-2">
                     <dt className="text-neutral-400">Movilidad reducida</dt>
@@ -498,10 +476,37 @@ export default function ReservasPage() {
                   {/* 👇 NUEVO: Comentarios */}
                   <div className="col-span-2">
                     <dt className="text-neutral-400">Comentarios</dt>
-                    <dd className="text-sm text-neutral-300">
+                    {/* <dd className="text-sm text-neutral-300">
                       {r.comentarios && r.comentarios.trim()
                         ? r.comentarios
                         : <span className="text-neutral-500">-</span>}
+                    </dd> */}
+                    <dd className="text-sm text-neutral-300">
+                      {r.comentarios && r.comentarios.trim() ? (
+                        <>
+                          <div
+                            className={
+                              openRows[`comment-${r.id}`]
+                                ? "whitespace-pre-wrap break-words"
+                                : "line-clamp-2 break-words"
+                            }
+                          >
+                            {r.comentarios}
+                          </div>
+
+                          <button
+                            type="button"
+                            onClick={() => toggleRow(`comment-${r.id}`)}
+                            className="mt-1 text-xs underline text-neutral-400 hover:text-neutral-200"
+                          >
+                            {openRows[`comment-${r.id}`]
+                              ? "Ocultar comentario"
+                              : "Ver comentario"}
+                          </button>
+                        </>
+                      ) : (
+                        <span className="text-neutral-500">-</span>
+                      )}
                     </dd>
                   </div>
 
@@ -542,12 +547,9 @@ export default function ReservasPage() {
           <div className="hidden lg:block">
             <div className=" border border-gray-800 overflow-x-auto lg:overflow-y-auto lg:max-h-[70vh]">
               <table className="w-full text-[13px] table-auto">
-                {/* <thead className="bg-neutral-950/80"> */}
                 <thead className="bg-neutral-950/95 lg:sticky lg:top-0 lg:z-20">
-                  {/* <tr className="[&>th]:px-2 [&>th]:py-2 [&>th]:text-left text-neutral-400"> */}
                   <tr className="[&>th]:px-2 [&>th]:py-2 [&>th]:text-left text-neutral-400 [&>th]:bg-neutral-950/95 lg:[&>th]:sticky lg:[&>th]:top-0">
                     {/* “Creada” solo en xl, para priorizar Acciones en lg */}
-                    {/* <th className="w-44 xl:table-cell">Creada</th> */}
                     <th className="w-32">ID</th>
                     <th className="w-32">Creada</th>
                     <th className="w-32">Fecha de visita</th>
@@ -557,13 +559,14 @@ export default function ReservasPage() {
                     {/* Tipo puede crecer pero con límite y rompiendo palabras */}
                     <th className="max-w-[14rem]">Tipo</th>
                     <th className="w-20">Ciudad origen</th>
+                    <th className="w-28">Patente</th>
                     <th className="w-28">Estado</th>
 
                     {/* Acciones con ancho fijo y sin shrink */}
                     <th >Email</th>
                     <th >Teléfono</th>
                     <th className="w-40">Mov. reducida</th>
-                    <th className="w-56">Comentarios</th>
+                    <th className="w-40">Comentarios</th>
                     <th className="w-40 text-center">Visitantes</th>
                     <th className="w-[220px] shrink-0 text-center">Acciones</th>
                   </tr>
@@ -597,6 +600,7 @@ export default function ReservasPage() {
                         <td className="break-words">{tipoToEs(r.tipoVisitante)}</td>
                         {/* <td className="whitespace-nowrap">{r.circuito ?? "-"}</td> */}
                         <td className="whitespace-nowrap">{r.originLocation ?? "-"}</td>
+                        <td className="text-neutral-400">{r.vehiclePlate || "—"}</td>
                         <td className="whitespace-nowrap">{statusToEs(r.status)}</td>
 
 
@@ -605,7 +609,7 @@ export default function ReservasPage() {
 
 
                         {/* 👇 Columna Movilidad reducida */}
-                        <td className="text-xs leading-snug align-top">
+                        <td className="text-xs leading-snug ">
                           {r.movilidadReducida > 0 ? (
                             <div>{r.movilidadReducida} mov. reducida</div>
                           ) : (
@@ -613,30 +617,17 @@ export default function ReservasPage() {
                           )}
                         </td>
 
-                        {/* 👇 Columna Comentarios */}
-                        {/* <td className="text-xs leading-snug align-top">
-                          {r.comentarios && r.comentarios.trim() ? (
-                            <div
-                              className="text-neutral-400 line-clamp-2"
-                              title={r.comentarios}
-                            >
-                              {r.comentarios}
-                            </div>
-                          ) : (
-                            <span className="text-neutral-500">-</span>
-                          )}
-                        </td> */}
-                        <td className="text-xs leading-snug align-top">
+                        <td className="text-xs leading-snug ">
                           {r.comentarios && r.comentarios.trim() ? (
                             <button
                               type="button"
                               onClick={() => toggleRow(`comment-${r.id}`)}
-                              className="text-left text-neutral-400 hover:text-neutral-200"
+                              className="text-left text-neutral-400"
                             >
-                              <div className="line-clamp-2">
+                              <div className="w-30 line-clamp-2">
                                 {r.comentarios}
                               </div>
-                              <span className="text-[11px] text-neutral-500 underline">
+                              <span className="text-xs underline hover:text-neutral-200">
                                 {openRows[`comment-${r.id}`] ? "Ocultar comentario" : "Ver comentario"}
                               </span>
 

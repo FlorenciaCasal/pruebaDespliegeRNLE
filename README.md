@@ -79,3 +79,26 @@ npm run dev
 yarn dev
 # o
 pnpm dev
+```
+---
+
+## 🛠 Operación: errores y modo mantenimiento
+
+### 404 / Not Found
+- El archivo `app/not-found.tsx` se muestra automáticamente cuando:
+  - se accede a una ruta inexistente (404),
+  - o cuando alguna página llama a `notFound()` (si se implementa).
+
+No es necesario importarlo ni llamarlo manualmente.
+
+### Modo mantenimiento (frontend)
+- El sitio puede mostrarse en modo mantenimiento para evitar una experiencia rota durante despliegues o caídas del backend.
+
+- **Variable de entorno (Vercel / local):**
+  - `NEXT_PUBLIC_MAINTENANCE_MODE=true | false`
+
+- **Comportamiento:**
+  - Si `NEXT_PUBLIC_MAINTENANCE_MODE=true`, el `RootLayout` renderiza `MaintenancePage` y no carga el sitio normal.
+  - Si es `false`, funciona normalmente.
+
+- > Nota: el modo mantenimiento se activa de forma manual (no cambia automáticamente).

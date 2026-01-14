@@ -84,6 +84,23 @@ export default function ContactoStep({
                     />
                 </div>
 
+                {/* Patente */}
+                <div>
+                    <label className="block mb-1">
+                        Patente del vehículo{" "}
+                    </label>
+                    <input
+                        {...register("vehiclePlate", {
+                            setValueAs: v => String(v ?? "").trim().toUpperCase(),
+                        })}
+                        className={inputBase}
+                        type="text"
+                        maxLength={10}
+                        placeholder="Ej. AB123CD"
+                        autoComplete="off"
+                    />
+                </div>
+
                 <div>
                     <label className="block mb-1">Ciudad de origen</label>
                     <CityAutocomplete

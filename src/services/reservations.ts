@@ -66,6 +66,7 @@ export async function submitReservation(data: ReservationFormData): Promise<{ id
     dni,
     phone,
     email,
+    vehiclePlate: data.vehiclePlate || null,
     circuit: "A", // Por defecto circuito A
     visitorType: mapVisitorType(data.tipoVisitante),
     institutionName: isSchool ? (data.institucion ?? null) : null,
