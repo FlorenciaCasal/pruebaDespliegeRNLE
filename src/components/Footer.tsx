@@ -68,6 +68,7 @@
 
 "use client";
 
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 function InstagramIcon(props: React.SVGProps<SVGSVGElement>) {
@@ -136,8 +137,12 @@ export default function Footer() {
                 SEGUINOS
               </h4>
               <div className="flex items-center gap-4">
-                <InstagramIcon className="w-5 h-5 opacity-80 hover:opacity-100" />
-                <FacebookIcon className="w-5 h-5 opacity-80 hover:opacity-100" />
+                <Link href="https://www.instagram.com/reservalagoescondido" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                  <InstagramIcon className="w-5 h-5 opacity-80 hover:opacity-100" />
+                </Link>
+                <Link href="https://www.facebook.com/profile.php?id=61586309443182" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                  <FacebookIcon className="w-5 h-5 opacity-80 hover:opacity-100" />
+                </Link>
                 <LinkedinIcon className="w-5 h-5 opacity-80 hover:opacity-100" />
               </div>
             </div>
